@@ -100,7 +100,7 @@ share-links-active:
 
 # How to display the link to your website in the footer
 # Remove this if you don't want a link in the footer
-url-pretty: "MyWebsite.com"
+url-pretty: "elektroedde.se"
 
 # Add the website title to the title of every page
 title-on-all-pages: true
@@ -134,7 +134,7 @@ navbar-var-length: false
 
 # Personalize the colours in your website. Colour values can be any valid CSS colour
 
-page-col: "#FFFFFF"
+page-col: "#ABFF02"
 text-col: "#404040"
 link-col: "#008AFF"
 hover-col: "#0085A1"
