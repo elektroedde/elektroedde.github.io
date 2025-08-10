@@ -67,3 +67,31 @@ h2 {
     text-decoration: none;
 }
 
+.project-title {
+    font-size: 1.5rem;
+    font-family:Arial, Helvetica, sans-serif;
+    color: #fdd835;
+}
+.project-text {
+    font-size: 1rem;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #f0f0f0;
+    margin-top: 0.5rem;
+    max-width: 900px;
+    text-align: left;
+    margin-left: auto;    /* Center horizontally */
+    margin-right: auto;   /* Center horizontally */
+}
+.project-image {
+    max-width: 50%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.newtest {
+    background-color: #14fe00;
+    border-color: #ff00ff;
+}
+.newtest:hover {
+    background-color: #ff0000;
+    border-color: #ff00ff;
+}
