@@ -67,12 +67,12 @@ h2 {
     text-decoration: none;
 }
 
-.project-title {
+.posts-title {
     font-size: 1.5rem;
     font-family:Arial, Helvetica, sans-serif;
     color: #fdd835;
 }
-.project-text {
+.posts-text {
     font-size: 1rem;
     font-family: Arial, Helvetica, sans-serif;
     color: #f0f0f0;
@@ -82,7 +82,18 @@ h2 {
     margin-left: auto;    /* Center horizontally */
     margin-right: auto;   /* Center horizontally */
 }
-.project-image {
+
+.posts-caption {
+    font-size: 1rem;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #f0f0f0;
+    margin-top: 0.5rem;
+    max-width: 1000px;
+    text-align: center;
+    margin-left: auto;    /* Center horizontally */
+    margin-right: auto;   /* Center horizontally */
+}
+.posts-image {
     max-width: 50%;
     margin-top: 20px;
     margin-bottom: 20px;
