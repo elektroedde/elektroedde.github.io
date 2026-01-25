@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Beam Types - Posts</title>
+    <title>FEM - Posts</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap"
       rel="stylesheet"
@@ -36,29 +36,24 @@
 
     <!-- Hero Section -->
     <header class="hero">
-      <h1 class="posts-title">Beam Types</h1>
+      <h1 class="posts-title">FEM in one dimension</h1>
       <p class="posts-text">
-        Gaussian, Hermite-Gaussian, Laguerre-Gaussian, Bessel.
-
+        Using FEM to solve differential equations.
 
         \[
-        \frac{e^{i k_x}}{x^2}
+        -\frac{\partial}{\partial x} \left( \alpha \frac{\partial u}{\partial x} \right)+\beta u = f
         \]
+
+        Using Galerkin's method [1] and linear elements
       </p>
-      <figure>
-        <img
-          src="/images/posts/beamtypes/test.png"
-          class="img-fluid mx-auto d-block posts-image"
-          alt="..."
-        />
-        <figcaption class="posts-caption">
-          Fig 1: Test
-        </figcaption>
-      </figure>
+
+      <h1 class="posts-title">References</h1>
+      <p class="posts-text">
+        [1] <a href="https://en.wikipedia.org/wiki/Galerkin_method">https://en.wikipedia.org/wiki/Galerkin_method</a>
+      </p>
     </header>
 
     <div id="footer"></div>
-
     <script src="/global/footer.js"></script>
   </body>
 </html>
