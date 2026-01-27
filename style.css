@@ -6,21 +6,41 @@ body {
     color: #f0f0f0;
 }
 
-header.hero {
-    text-align: center;
-    padding: 4rem 1rem;
-    background-color: #1e1e1e;
+
+main {
+  background-color: #0d0d0d; /* slightly darker than header */
+  padding: 2rem;
+  border-radius: 0.5rem;
 }
 
 .highlight {
     color: #fdd835; /* Yellow accent */
 }
 
+#navbar {
+  background-color: #0d0d0d; /* very dark */
+  color: white; /* text color */
+}
 .projects, .badges, .footer {
     padding: 2rem 1rem;
     max-width: 1000px;
     margin: auto;
 }
+
+pre[class*="language-"] {
+  border-radius: 0.5rem;   /* rounded corners */
+  overflow-x: auto;        /* scroll if code is too long */
+}
+
+/* Optional: add a dark background and padding */
+pre[class*="language-"] > code {
+  display: block;
+  padding: 0rem;
+  border-radius: 0.5rem;     /* matches pre */
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1rem;
+}
+
 
 h2 {
     color: #fdd835;
@@ -68,9 +88,14 @@ h2 {
 }
 
 .posts-title {
-    font-size: 1.5rem;
+    font-size: 2.5rem;
     font-family:Arial, Helvetica, sans-serif;
     color: #fdd835;
+}
+.posts-headline {
+    font-size: 1.75rem;
+    font-family:Arial, Helvetica, sans-serif;
+    color: #f0f0f0;
 }
 .posts-text {
     font-size: 1rem;
