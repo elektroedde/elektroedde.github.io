@@ -32,14 +32,17 @@
     <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-python.min.js"></script>
 
+
+
   </head>
 <body>
     <!-- Navigation Bar -->
     <div id="navbar"></div>
     <script src="/global/navbar.js"></script>
-
+    
     <main class="container my-5">
       <!-- Hero / Title -->
+
       <header class="mb-5 text-center">
         <h1 class="posts-title">2D Magnetostatic Fields (FEM)</h1>
       </header>
@@ -79,15 +82,15 @@
             rectangle = gmsh.model.occ.addRectangle(-3,-2.5,0,1,5,3)
             frags, _ = gmsh.model.occ.fragment([(2, outerbox)], [(2, disc),(2,rectangle)])
             gmsh.model.occ.synchronize()
-                    
+
             gmsh.model.addPhysicalGroup(1, [1, 2, 3, 4], tag=dirichlet_pg)
             gmsh.model.addPhysicalGroup(2, [2], tag=current_pg)
             gmsh.model.addPhysicalGroup(2, [3], tag=iron_pg)
-                    
-                    
+
+
             gmsh.option.setNumber("Mesh.CharacteristicLengthMin", 0.25)
             gmsh.option.setNumber("Mesh.CharacteristicLengthMax", 0.25)
-                    
+
             gmsh.model.mesh.generate(2)
             gmsh.fltk.run()
 
