@@ -124,10 +124,11 @@ h2 {
     margin-right: auto;   /* Center horizontally */
 }
 .posts-image {
-    max-width: 50%;
-    margin-top: 20px;
-    margin-bottom: 20px;
+  width: 100%;
+  height: 350px;      /* increase this if you want even bigger */
+  object-fit: contain; /* keeps aspect ratio */
 }
+
 .newtest {
     background-color: #14fe00;
     border-color: #ff00ff;
@@ -143,3 +144,15 @@ h2 {
     border-color:#fdd835;
 }
 
+ol {
+  list-style: none;
+  counter-reset: ref;
+}
+
+ol li {
+  counter-increment: ref;
+}
+
+ol li::before {
+  content: "[" counter(ref) "] ";
+}
