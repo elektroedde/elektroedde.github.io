@@ -17,7 +17,9 @@ main {
   padding: 2rem;
   border-radius: 0.5rem;
 }
-
+title {
+    color: #f1f3de;
+}
 .highlight {
     color: #fdd835; /* Yellow accent */
 }
@@ -155,4 +157,37 @@ ol li {
 
 ol li::before {
   content: "[" counter(ref) "] ";
+}
+
+.testinn {
+    height: 250px;
+
+    background: linear-gradient(
+        90deg,
+        #00007F 0%,
+        #0000FF 7%,
+        #007FFF 14%,
+        #00FFFF 21%,
+        #7FFF7F 28%,
+        #FFFF00 35%,
+        #FF0000 42%,
+        #f70000 49%,
+        #FF0000 56%,
+        #FFFF00 63%,
+        #7FFF7F 70%,
+        #00FFFF 77%,
+        #007FFF 84%,
+        #0000FF 93%,
+        #00007F 100%
+
+    );
+    background-size: 50% 100%;
+    animation: testinn 4s linear infinite;
+    background-clip: text;
+    color: transparent;
+}
+
+@keyframes testinn {
+    0%   { background-position: 0% 0%; }
+    100% { background-position: 100% 0%; }
 }
