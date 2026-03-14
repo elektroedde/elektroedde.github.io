@@ -275,28 +275,67 @@ ol li::before {
     content: "[" counter(ref) "] ";
 }
 
+/* === Inactive projects toggle === */
+.inactive-projects-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1000px;
+    padding: 0.6rem 1rem;
+    background-color: transparent;
+    border: 1px solid var(--accent);
+    border-radius: var(--radius);
+    color: var(--accent);
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: background-color var(--ease), box-shadow var(--ease);
+}
+
+.inactive-projects-toggle:hover {
+    background-color: var(--accent-dim);
+    box-shadow: 0 0 12px rgba(253, 216, 53, 0.12);
+}
+
+.inactive-projects-chevron {
+    font-size: 0.7rem;
+    transition: transform var(--ease);
+}
+
+.inactive-projects-toggle[aria-expanded="true"] .inactive-projects-chevron {
+    transform: rotate(180deg);
+}
+
 /* === Animated gradient text === */
 .testinn {
     background: linear-gradient(
         90deg,
-        #00007F 0%,
-        #0000FF 7%,
-        #007FFF 14%,
-        #00FFFF 21%,
-        #7FFF7F 28%,
-        #FFFF00 35%,
-        #FF0000 42%,
-        #f70000 49%,
-        #FF0000 56%,
-        #FFFF00 63%,
-        #7FFF7F 70%,
-        #00FFFF 77%,
-        #007FFF 84%,
-        #0000FF 93%,
-        #00007F 100%
+        #00007F  0%,
+        #0000FF  4%,
+        #00FFFF  10%,
+        #7FFF7F  12%,
+        #FFFF00  15%,
+        #FF0000  25%,
+        #FFFF00  35%,
+        #7FFF7F  37%,
+        #00FFFF  42%,
+        #0000FF  46%,
+        #00007F  50%,
+        #0000FF  54%,
+        #00FFFF  58%,
+        #7FFF7F  62%,
+        #FFFF00  65%,
+        #FF0000  75%,
+        #FFFF00  85%,
+        #7FFF7F  88%,
+        #00FFFF  90%,
+        #0000FF  96%,
+        #00007F  100%
     );
     background-size: 200% 100%;
-    animation: testinn 4s linear infinite;
+    animation: testinn 8s linear infinite;
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;

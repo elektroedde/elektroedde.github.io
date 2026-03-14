@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ElektroEngine</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/style.css" />
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <div id="navbar"></div>
+    <script src="/global/navbar.js"></script>
+
+    <main class="container my-5">
+        <header class="mb-5 text-center">
+            <h1 class="posts-title">ElektroEngine</h1>
+            <p style="color: var(--text-muted); font-family: var(--font-body); margin-top: 0.5rem;">
+                Swift &middot; Metal &middot; C++ &middot; Real-Time Rendering
+            </p>
+        </header>
+
+        <section id="overview" class="mb-5">
+            <h2 class="posts-headline">Overview</h2>
+            <p class="posts-text">
+                ElektroEngine is a math and physics engine built with Swift Metal and C++.
+                The goal is real-time rendering and simulation of physical systems — combining
+                GPU-accelerated graphics programming with numerical methods from electrodynamics and mechanics.
+            </p>
+        </section>
+
+        <section id="demos" class="mb-5">
+            <h2 class="posts-headline">Demos</h2>
+
+            <div class="row g-4">
+
+                <div class="col-md-6">
+                    <figure class="text-center">
+                        <iframe
+                            src="https://www.youtube.com/embed/_yp6yuk_a6w"
+                            class="posts-image"
+                            style="width: 100%; border: none;"
+                            allowfullscreen>
+                        </iframe>
+                        <figcaption class="posts-caption">Demo 1: placeholder</figcaption>
+                    </figure>
+                </div>
+
+                <div class="col-md-6">
+                    <figure class="text-center">
+                        <iframe
+                            src="https://www.youtube.com/embed/2l114nfN-Sw"
+                            class="posts-image"
+                            style="width: 100%; border: none;"
+                            allowfullscreen>
+                        </iframe>
+                        <figcaption class="posts-caption">Demo 2: placeholder</figcaption>
+                    </figure>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer"></div>
+    <script src="/global/footer.js"></script>
+</body>
+
+</html>

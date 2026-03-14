@@ -34,19 +34,23 @@
 
       <div class="card mb-3" style="max-width: 1000px;">
       <div class="row g-0">
-        <div class="col-md-4" style="max-width: 100%;">
-          <img src="images/home/cover_image.png"  class="img-fluid rounded-start" alt="...">
+        <div class="col-md-4" style="max-width: 100%; display: flex;">
+          <video src="images/home/elektroengine_cover.mp4" autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius) 0 0 var(--radius);"></video>
         </div>
         <div class="col-md-8">
           <div class="card-body">
-            <h5 class="card-title">Interactive FEM Solver and Visualization Tool</h5>
-            <p class="card-text">A graphical user interface application used for solving finite element method problems.</p>
-            <p class="card-text"><small class="text-body-secondary">Latest update: Feb 7, 2026</small></p>
-            <a href="/projects/fem_application.html" class="btn btn-primary">Check it out!</a>
+            <div class="d-flex align-items-center gap-2 mb-1">
+              <h5 class="card-title mb-0">ElektroEngine</h5>
+              <span class="badge" style="background-color: var(--accent); color: #000; font-size: 0.7rem; letter-spacing: 0.05em;">ACTIVE</span>
+            </div>
+            <p class="card-text">A math &amp; physics engine built with Swift Metal and C++. Real-time rendering and graphics programming for simulating physical systems.</p>
+            <p class="card-text"><small class="text-body-secondary">Swift · Metal · C++ · Graphics Programming</small></p>
+            <a href="/projects/elektroengine.html" class="btn btn-primary">Check it out!</a>
           </div>
         </div>
       </div>
     </div>
+
   </section>
 
   <section class="badges">
@@ -108,6 +112,42 @@
         </div>
       </div>
 
+    </div>
+  </section>
+
+  <!-- Inactive Projects Section -->
+  <section class="projects" style="padding-top: 0;">
+    <button
+      class="inactive-projects-toggle"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#inactiveProjects"
+      aria-expanded="false"
+      aria-controls="inactiveProjects"
+    >
+      <span>Inactive Projects</span>
+      <span class="inactive-projects-chevron">&#9660;</span>
+    </button>
+
+    <div class="collapse" id="inactiveProjects">
+      <div class="card mb-3 mt-3" style="max-width: 1000px; opacity: 0.6;">
+        <div class="row g-0">
+          <div class="col-md-4" style="max-width: 100%;">
+            <img src="images/home/cover_image.png" class="img-fluid rounded-start" alt="FEM Solver" style="filter: grayscale(60%);">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <div class="d-flex align-items-center gap-2 mb-1">
+                <h5 class="card-title mb-0">Interactive FEM Solver and Visualization Tool</h5>
+                <span class="badge" style="background-color: #444; color: #aaa; font-size: 0.7rem; letter-spacing: 0.05em;">SHELVED</span>
+              </div>
+              <p class="card-text">A graphical user interface application used for solving finite element method problems.</p>
+              <p class="card-text"><small class="text-body-secondary">Latest update: Feb 7, 2026 &mdash; Project abandoned</small></p>
+              <a href="/projects/fem_application.html" class="btn btn-secondary btn-sm">View anyway</a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
