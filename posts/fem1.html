@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FEM - Posts</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="/style.css" />
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"
+    ></script>
+  </head>
+
+  <body>
+    <!-- Navigation Bar -->
+    <div id="navbar"></div>
+
+    <script src="/global/navbar.js"></script>
+
+
+    <!-- Hero Section -->
+    <header class="hero">
+      <h1 class="posts-title">FEM in one dimension</h1>
+      <p class="posts-text">
+        Using FEM to solve differential equations.
+
+        \[
+        -\frac{\partial}{\partial x} \left( \alpha \frac{\partial u}{\partial x} \right)+\beta u = f
+        \]
+
+        Using Galerkin's method [1] and linear elements
+      </p>
+
+      <h1 class="posts-title">References</h1>
+      <p class="posts-text">
+        [1] <a href="https://en.wikipedia.org/wiki/Galerkin_method">https://en.wikipedia.org/wiki/Galerkin_method</a>
+      </p>
+    </header>
+
+    <div id="footer"></div>
+    <script src="/global/footer.js"></script>
+  </body>
+</html>

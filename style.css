@@ -1,0 +1,193 @@
+
+body {
+    margin: 0;
+    font-family: 'Orbitron', sans-serif;
+    background-color: #121212;
+    color: #f0f0f0;
+}
+
+header.hero {
+    text-align: center;
+    padding: 4rem 1rem;
+    background-color: #121212;
+}
+
+main {
+  background-color: #0d0d0d; /* slightly darker than header */
+  padding: 2rem;
+  border-radius: 0.5rem;
+}
+title {
+    color: #f1f3de;
+}
+.highlight {
+    color: #fdd835; /* Yellow accent */
+}
+
+#navbar {
+  background-color: #0d0d0d; /* very dark */
+  color: white; /* text color */
+}
+.projects, .badges, .footer {
+    padding: 2rem 1rem;
+    max-width: 1000px;
+    margin: auto;
+}
+
+pre[class*="language-"] {
+  border-radius: 0.5rem;   /* rounded corners */
+  overflow-x: auto;        /* scroll if code is too long */
+}
+
+/* Optional: add a dark background and padding */
+pre[class*="language-"] > code {
+  display: block;
+  padding: 0rem;
+  border-radius: 0.5rem;     /* matches pre */
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1rem;
+}
+
+
+h2 {
+    color: #fdd835;
+    border-bottom: 2px solid #fdd835;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.project-card {
+    background: #222;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.project-card a {
+    color: #fdd835;
+    text-decoration: none;
+}
+
+.badge-grid {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.badge {
+    background-color: #333;
+    border: 1px solid #fdd835;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    color: #fdd835;
+}
+
+.footer {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid #444;
+}
+
+.footer .links a {
+    margin: 0 1rem;
+    color: #fdd835;
+    text-decoration: none;
+}
+
+.posts-title {
+    font-size: 2.5rem;
+    font-family:Arial, Helvetica, sans-serif;
+    color: #fdd835;
+}
+.posts-headline {
+    font-size: 1.75rem;
+    font-family:Arial, Helvetica, sans-serif;
+    color: #f0f0f0;
+}
+.posts-text {
+    font-size: 1rem;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #f0f0f0;
+    margin-top: 0.5rem;
+    max-width: 1000px;
+    text-align: left;
+    margin-left: auto;    /* Center horizontally */
+    margin-right: auto;   /* Center horizontally */
+}
+
+.posts-caption {
+    font-size: 1rem;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #f0f0f0;
+    margin-top: 0.5rem;
+    max-width: 1000px;
+    text-align: center;
+    margin-left: auto;    /* Center horizontally */
+    margin-right: auto;   /* Center horizontally */
+}
+.posts-image {
+  width: 100%;
+  height: 350px;      /* increase this if you want even bigger */
+  object-fit: contain; /* keeps aspect ratio */
+}
+
+.newtest {
+    background-color: #14fe00;
+    border-color: #ff00ff;
+}
+.newtest:hover {
+    background-color: #ff0000;
+    border-color: #ff00ff;
+}
+
+.btn-primary {
+    background-color: #fdd835; 
+    color: #000000; 
+    border-color:#fdd835;
+}
+
+ol {
+  list-style: none;
+  counter-reset: ref;
+}
+
+ol li {
+  counter-increment: ref;
+}
+
+ol li::before {
+  content: "[" counter(ref) "] ";
+}
+
+.testinn {
+    height: 250px;
+
+    background: linear-gradient(
+        90deg,
+        #00007F 0%,
+        #0000FF 7%,
+        #007FFF 14%,
+        #00FFFF 21%,
+        #7FFF7F 28%,
+        #FFFF00 35%,
+        #FF0000 42%,
+        #f70000 49%,
+        #FF0000 56%,
+        #FFFF00 63%,
+        #7FFF7F 70%,
+        #00FFFF 77%,
+        #007FFF 84%,
+        #0000FF 93%,
+        #00007F 100%
+
+    );
+    background-size: 50% 100%;
+    animation: testinn 4s linear infinite;
+    background-clip: text;
+    color: transparent;
+}
+
+@keyframes testinn {
+    0%   { background-position: 0% 0%; }
+    100% { background-position: 100% 0%; }
+}

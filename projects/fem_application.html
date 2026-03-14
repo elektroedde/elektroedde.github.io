@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FEM Application</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/style.css" />
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <!-- Prism.js CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.css" rel="stylesheet" />
+
+    <!-- Prism.js JS -->
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-python.min.js"></script>
+
+
+
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <div id="navbar"></div>
+    <script src="/global/navbar.js"></script>
+
+    <main class="container my-5">
+        <!-- Hero / Title -->
+
+        <header class="mb-5 text-center">
+            <h1 class="posts-title">elektroedde's FEM Application</h1>
+        </header>
+        <p class="posts-text">
+            Built in python using
+            <a href="https://doc.qt.io/qtforpython-6/index.html" target="_blank" rel="noopener">PySide6</a>,
+            <a href="https://gmsh.info" target="_blank" rel="noopener">gmsh</a>,
+            <a href="https://matplotlib.org" target="_blank" rel="noopener">matplotlib</a>.
+
+        </p>
+
+        <!--! Geometry Section -->
+        <section id="geometry" class="mb-4">
+            <h2 class="posts-headline">Week 1 - Update #1: Make it work first, make it good later! </h2>
+
+            <p class="posts-text">
+                This is the first "working" version of the application. Currently it only solves one rectangle with
+                simple Dirichlet
+                boundary conditions that are hard coded. The plan is to be able to select which edge of the rectangle to
+                set the boundary conditions on.
+                For now I'm going to work on the overall structure of the program and make the code cleaner.
+
+                The program as it works now is divided in four parts. These parts are Geometry, Physics, Meshing and
+                Results. Below I have added an image for each part.
+            </p>
+
+            <div class="row g-4">
+
+                <div class="col-md-6">
+                    <figure class="text-center">
+                        <img src="/images/projects/fem/geometry_window.png" class="img-fluid posts-image"
+                            alt="Geometry window" />
+                        <figcaption class="posts-caption">
+                            Fig 1: Geometry editor.
+                        </figcaption>
+                    </figure>
+                </div>
+
+                <div class="col-md-6">
+                    <figure class="text-center">
+                        <img src="/images/projects/fem/physics_window.png" class="img-fluid posts-image"
+                            alt="Physics window" />
+                        <figcaption class="posts-caption">
+                            Fig 2: Physics setup.
+                        </figcaption>
+                    </figure>
+                </div>
+
+                <div class="col-md-6">
+                    <figure class="text-center">
+                        <img src="/images/projects/fem/meshing_window.png" class="img-fluid posts-image"
+                            alt="Meshing window" />
+                        <figcaption class="posts-caption">
+                            Fig 3: Mesh generation.
+                        </figcaption>
+                    </figure>
+                </div>
+
+                <div class="col-md-6">
+                    <figure class="text-center">
+                        <img src="/images/projects/fem/results_window.png" class="img-fluid posts-image"
+                            alt="Results window" />
+                        <figcaption class="posts-caption">
+                            Fig 4: Result visualization.
+                        </figcaption>
+                    </figure>
+                </div>
+
+            </div>
+
+            <p class="posts-text">
+                What to work on:
+            <ul class="posts-text">
+                <li>Improve the program structure</li>
+                <li>Rectangle/geometry handling</li>
+                <li>Background view with grid</li>
+            </ul>
+            </p>
+
+
+
+        </section>
+        <!--! References -->
+        <section id="references" class="mb-4">
+            <h2 class="posts-headline">References</h2>
+            <ol class="posts-text">
+                <li>
+                    <a href="https://doc.qt.io/qtforpython-6/index.html" target="_blank" rel="noopener">
+                        PySide6
+                    </a>
+                </li>
+                <li>
+                    <a href="https://gmsh.info" target="_blank" rel="noopener">
+                        gmsh
+                    </a>
+                </li>
+                <li>
+                    <a href="https://matplotlib.org" target="_blank" rel="noopener">
+                        matplotlib
+                    </a>
+                </li>
+            </ol>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer"></div>
+    <script src="/global/footer.js"></script>
+</body>
+
+</html>
