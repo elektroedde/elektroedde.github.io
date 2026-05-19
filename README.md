@@ -4,8 +4,8 @@ Personal portfolio site for an Electrical Engineering student specializing in El
 
 ## What's on it
 
-- **Projects** — active work including ElektroEngine (a Swift Metal/C++ physics engine), and book solution repos for Computational Physics and Griffiths Electrodynamics
-- **Course Specialties** — expandable cards covering Electrodynamics, Lasers, FEM, Antenna Technology, Quantum Mechanics, and Radar Technology
+- **Projects** — active work
+- **Course Specialties** — expandable cards on my courses
 - **About me** - About me
 
 ## Stack
