@@ -287,6 +287,33 @@ ol li::before {
     content: "[" counter(ref) "] ";
 }
 
+/* === Course cards expandable === */
+.course-toggle {
+    cursor: pointer;
+    user-select: none;
+    transition: background-color var(--ease);
+}
+
+.course-toggle:hover {
+    background-color: rgba(253, 216, 53, 0.05);
+}
+
+.course-chevron {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    transition: transform var(--ease);
+    flex-shrink: 0;
+}
+
+.course-toggle[aria-expanded="true"] .course-chevron {
+    transform: rotate(180deg);
+}
+
+.course-details {
+    border-top: 1px solid var(--border);
+    padding: 0.75rem 1rem;
+}
+
 /* === Inactive projects toggle === */
 .inactive-projects-toggle {
     display: flex;
