@@ -314,6 +314,23 @@ ol li::before {
     padding: 0.75rem 1rem;
 }
 
+.course-details ul {
+    padding-left: 1.2rem;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    color: var(--text-muted);
+}
+
+.course-details a {
+    color: var(--accent);
+    text-decoration: none;
+    transition: opacity var(--ease);
+}
+
+.course-details a:hover {
+    opacity: 0.75;
+}
+
 /* === Inactive projects toggle === */
 .inactive-projects-toggle {
     display: flex;
@@ -345,6 +362,121 @@ ol li::before {
 
 .inactive-projects-toggle[aria-expanded="true"] .inactive-projects-chevron {
     transform: rotate(180deg);
+}
+
+/* === Series list === */
+.series-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.25rem;
+    max-width: 800px;
+    margin: 0 auto 1rem;
+    padding: 1rem 1.25rem;
+    text-decoration: none;
+}
+
+.series-card-number {
+    flex-shrink: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--accent-dim);
+    color: var(--accent);
+    font-family: var(--font-display);
+    font-weight: 700;
+}
+
+.series-card-body {
+    flex: 1;
+}
+
+.series-card-title {
+    color: var(--text);
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    margin-bottom: 0.2rem;
+}
+
+.series-card-desc {
+    color: var(--text-muted);
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    margin: 0;
+}
+
+.series-card.is-upcoming {
+    opacity: 0.55;
+    cursor: default;
+}
+
+.series-card.is-upcoming .series-card-number {
+    background-color: transparent;
+    border: 1px dashed var(--border-hover);
+    color: var(--text-muted);
+}
+
+/* === Post series badge + prev/next nav === */
+.post-series-badge {
+    display: inline-block;
+    color: var(--accent);
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    text-decoration: none;
+    border: 1px solid var(--border-hover);
+    border-radius: 999px;
+    padding: 0.25rem 0.75rem;
+    transition: background-color var(--ease);
+}
+
+.post-series-badge:hover {
+    background-color: var(--accent-dim);
+}
+
+.post-series-nav {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    max-width: 800px;
+    margin: 2.5rem auto 0;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-family: var(--font-body);
+}
+
+.post-series-nav a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color var(--ease);
+}
+
+.post-series-nav a:hover {
+    color: var(--accent);
+}
+
+.post-series-nav .next {
+    text-align: right;
+}
+
+.post-series-nav .disabled {
+    color: var(--text-muted);
+    opacity: 0.5;
+}
+
+.post-series-nav span.label {
+    display: block;
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 0.2rem;
 }
 
 /* === Animated gradient text === */

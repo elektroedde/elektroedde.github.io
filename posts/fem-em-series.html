@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FEM for Electromagnetics — Tutorial Series</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="/style.css" />
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "YOUR_CLOUDFLARE_BEACON_TOKEN"}'></script>
+  </head>
+
+  <body>
+    <!-- Navigation Bar -->
+    <div id="navbar"></div>
+    <script src="/global/navbar.js"></script>
+
+    <!-- Hero / Title -->
+    <header class="hero">
+      <h1 class="posts-title">FEM for Electromagnetics</h1>
+      <p class="posts-text">
+        A tutorial series on the finite element method applied to
+        electromagnetic problems, starting from a 1D scalar equation and
+        building up to 2D vector field problems.
+      </p>
+    </header>
+
+    <main class="container my-5">
+      <section>
+        <a href="/posts/fem1.html" class="card series-card">
+          <div class="series-card-number">1</div>
+          <div class="series-card-body">
+            <h5 class="series-card-title">FEM in One Dimension</h5>
+            <p class="series-card-desc">
+              Deriving the weak form and solving a 1D differential equation
+              with Galerkin's method and linear elements.
+            </p>
+          </div>
+        </a>
+
+        <a href="/posts/magnetostatic_fem.html" class="card series-card">
+          <div class="series-card-number">2</div>
+          <div class="series-card-body">
+            <h5 class="series-card-title">2D Magnetostatic Fields</h5>
+            <p class="series-card-desc">
+              Meshing a geometry with Gmsh and solving the 2D magnetostatic
+              vector potential equation.
+            </p>
+          </div>
+        </a>
+
+        <div class="card series-card is-upcoming">
+          <div class="series-card-number">3</div>
+          <div class="series-card-body">
+            <h5 class="series-card-title">Coming soon</h5>
+            <p class="series-card-desc">
+              Next up: time-harmonic fields and eddy currents.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div id="footer"></div>
+    <script src="/global/footer.js"></script>
+  </body>
+</html>

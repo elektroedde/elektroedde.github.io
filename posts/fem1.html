@@ -25,6 +25,7 @@
       async
       src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"
     ></script>
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "YOUR_CLOUDFLARE_BEACON_TOKEN"}'></script>
   </head>
 
   <body>
@@ -36,6 +37,7 @@
 
     <!-- Hero Section -->
     <header class="hero">
+      <a href="/posts/fem-em-series.html" class="post-series-badge">FEM for Electromagnetics — Part 1 of 3</a>
       <h1 class="posts-title">FEM in one dimension</h1>
       <p class="posts-text">
         Using FEM to solve differential equations.
@@ -52,6 +54,14 @@
         [1] <a href="https://en.wikipedia.org/wiki/Galerkin_method">https://en.wikipedia.org/wiki/Galerkin_method</a>
       </p>
     </header>
+
+    <nav class="post-series-nav">
+      <span></span>
+      <a href="/posts/magnetostatic_fem.html" class="next">
+        <span class="label">Next</span>
+        2D Magnetostatic Fields &rarr;
+      </a>
+    </nav>
 
     <div id="footer"></div>
     <script src="/global/footer.js"></script>
