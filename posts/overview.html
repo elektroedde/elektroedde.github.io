@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FEM for Electromagnetics — Tutorial Series</title>
+  <title>Overview - FEM for Electromagnetics</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous" />
@@ -21,18 +21,29 @@
   <div id="navbar"></div>
   <script src="/global/navbar.js"></script>
 
-  <!-- Hero / Title -->
+  <!-- Hero Section -->
   <header class="hero">
-    <h1 class="posts-title">FEM for Electromagnetics</h1>
+    <div id="series-badge"></div>
+    <h1 class="posts-title">FEM for Electromagnetics: Overview</h1>
     <p class="posts-text">
-      A tutorial series on the finite element method applied to
-      electromagnetic problems, starting from a 1D scalar equation and
-      building up to 2D vector field problems.
+      This series walks through the finite element method (FEM) applied to
+      electromagnetic field problems. It starts with a 1D scalar equation
+      to build intuition for the weak form and Galerkin's method, then
+      moves to 2D vector field problems like magnetostatics, where meshing,
+      material regions, and boundary conditions all come into play.
+    </p>
+    <p class="posts-text">
+      Each part adds one new piece on top of the last: a new governing
+      equation, a new meshing step, or a new way of handling boundary
+      conditions. The code for every part is Python, mostly built around
+      Gmsh for meshing and NumPy/SciPy for assembly and solving.
     </p>
   </header>
 
   <main class="container my-5">
-    <section id="series-list"></section>
+    <iframe src="/posts/testing.html" style="width: 100%; height: 300px; border: none; border-radius: var(--radius); background: var(--surface-raised);"></iframe>
+
+    <div id="series-nav"></div>
   </main>
 
   <div id="footer"></div>

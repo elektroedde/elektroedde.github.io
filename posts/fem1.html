@@ -37,33 +37,29 @@
 
     <!-- Hero Section -->
     <header class="hero">
-      <a href="/posts/fem-em-series.html" class="post-series-badge">FEM for Electromagnetics — Part 1 of 3</a>
+      <div id="series-badge"></div>
       <h1 class="posts-title">FEM in one dimension</h1>
       <p class="posts-text">
-        Using FEM to solve differential equations.
-
         \[
-        -\frac{\partial}{\partial x} \left( \alpha \frac{\partial u}{\partial x} \right)+\beta u = f
+          \nabla \cdot \mathbf{E} = 0 \\
+          \mathbf{E} = -\nabla V
         \]
-
-        Using Galerkin's method [1] and linear elements
       </p>
 
       <h1 class="posts-title">References</h1>
       <p class="posts-text">
-        [1] <a href="https://en.wikipedia.org/wiki/Galerkin_method">https://en.wikipedia.org/wiki/Galerkin_method</a>
+
       </p>
     </header>
 
-    <nav class="post-series-nav">
-      <span></span>
-      <a href="/posts/magnetostatic_fem.html" class="next">
-        <span class="label">Next</span>
-        2D Magnetostatic Fields &rarr;
-      </a>
-    </nav>
+    <div id="series-nav"></div>
 
     <div id="footer"></div>
     <script src="/global/footer.js"></script>
+    <script src="/global/series-data.js"></script>
+    <script>
+      window.SERIES_SLUG = "fem-em";
+    </script>
+    <script src="/global/series-nav.js"></script>
   </body>
 </html>

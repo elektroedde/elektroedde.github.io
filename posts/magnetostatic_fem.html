@@ -45,7 +45,7 @@
       <!-- Hero / Title -->
 
       <header class="mb-5 text-center">
-        <a href="/posts/fem-em-series.html" class="post-series-badge">FEM for Electromagnetics — Part 2 of 3</a>
+        <div id="series-badge"></div>
         <h1 class="posts-title">2D Magnetostatic Fields (FEM)</h1>
       </header>
 
@@ -158,20 +158,16 @@
         </ul>
       </section>
 
-      <nav class="post-series-nav">
-        <a href="/posts/fem1.html" class="prev">
-          <span class="label">Previous</span>
-          &larr; FEM in One Dimension
-        </a>
-        <span class="next disabled">
-          <span class="label">Next</span>
-          Part 3 — Coming soon
-        </span>
-      </nav>
+      <div id="series-nav"></div>
     </main>
 
     <!-- Footer -->
     <div id="footer"></div>
     <script src="/global/footer.js"></script>
+    <script src="/global/series-data.js"></script>
+    <script>
+      window.SERIES_SLUG = "fem-em";
+    </script>
+    <script src="/global/series-nav.js"></script>
   </body>
 </html>
