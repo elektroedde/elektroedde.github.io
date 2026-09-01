@@ -12,7 +12,6 @@
     integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
     crossorigin="anonymous"></script>
   <link rel="stylesheet" href="style.css" />
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "YOUR_CLOUDFLARE_BEACON_TOKEN"}'></script>
 </head>
 
 <body>
@@ -23,8 +22,8 @@
 
 
   <!-- Hero Section -->
-  <header class="hero">
-    <h1>Hey, I’m <span class="testinn">elektroedde</span></h1>
+  <header class="hero" id="about">
+    <h1>Hey, I’m <span class="rainbow-text">elektroedde</span></h1>
     <p>Electrical Engineering Student</p>
     <p>Specializing in <span class="highlight">Electrodynamics</span> and <span class="highlight">Photonics</span></p>
   </header>
@@ -212,6 +211,26 @@
                 <li>Radar equation & cross-section</li>
                 <li>Pulse compression & waveforms</li>
                 <li>Doppler processing</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card">
+          <img src="images/courses/matrix.svg" class="card-img-top" alt="..." />
+          <div class="card-body course-toggle d-flex justify-content-between align-items-center"
+               data-bs-toggle="collapse" data-bs-target="#course-matrix" aria-expanded="false">
+            <h5 class="card-title mb-0">Matrix Theory</h5>
+            <span class="course-chevron">&#9660;</span>
+          </div>
+          <div class="collapse" id="course-matrix">
+            <div class="course-details">
+              <ul class="card-text mb-0">
+                <li>Eigenvalues & eigenvectors</li>
+                <li>Matrix decompositions</li>
+                <li>Linear systems & vector spaces</li>
               </ul>
             </div>
           </div>

@@ -480,7 +480,7 @@ ol li::before {
 }
 
 /* === Animated gradient text === */
-.testinn {
+.rainbow-text {
     background: linear-gradient(
         90deg,
         #00007F  0%,
@@ -506,14 +506,14 @@ ol li::before {
         #00007F  100%
     );
     background-size: 200% 100%;
-    animation: testinn 8s linear infinite;
+    animation: rainbow-text 8s linear infinite;
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
     -webkit-text-fill-color: transparent;
 }
 
-@keyframes testinn {
+@keyframes rainbow-text {
     0%   { background-position: 0% 0%; }
     100% { background-position: 100% 0%; }
 }
