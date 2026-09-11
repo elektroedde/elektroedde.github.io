@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+<!-- DESIGN CONCEPT RF10 — "HUD: Antenna / Turbo Surface". Sibling of index6 (Photon HUD). Safe to delete once a design is chosen. -->
 <html lang="en" data-bs-theme="dark">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>elektroedde</title>
+  <title>elektroedde — concept: Turbo Surface</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous" />
@@ -14,13 +15,13 @@
 
   <style>
     :root {
-      --bg: #03060d;
-      --panel: rgba(10, 26, 46, 0.5);
-      --blue: #5ec8ff;
-      --blue-dim: rgba(94, 200, 255, 0.25);
-      --gold: #fdd835;
-      --text: #e8f4ff;
-      --text-muted: rgba(232, 244, 255, 0.55);
+      --bg: #04080d;
+      --panel: rgba(10, 26, 40, 0.55);
+      --cyan: #3fd7ff;
+      --cyan-dim: rgba(63, 215, 255, 0.25);
+      --orange: #ff8a3d;
+      --text: #e7f6ff;
+      --text-muted: rgba(231, 246, 255, 0.55);
       --ease: 0.2s ease;
     }
 
@@ -29,26 +30,33 @@
 
     body {
       margin: 0;
-      background: radial-gradient(ellipse at 50% 0%, rgba(94, 200, 255, 0.08) 0%, transparent 55%), var(--bg);
+      background: radial-gradient(ellipse at 50% 0%, rgba(63, 215, 255, 0.08) 0%, transparent 55%), var(--bg);
       color: var(--text);
       font-family: 'IBM Plex Mono', monospace;
     }
 
-    a { color: var(--blue); }
+    a { color: var(--cyan); }
+
+    .concept-ribbon {
+      position: fixed; top: 0.75rem; right: 0.75rem; z-index: 2000;
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; letter-spacing: 0.06em;
+      color: var(--bg); background: var(--cyan);
+      padding: 0.3rem 0.6rem;
+    }
 
     /* === Navbar === */
     #navbar { position: sticky; top: 0; z-index: 1000; }
     #navbar nav.navbar {
-      background: rgba(3, 6, 13, 0.85) !important;
+      background: rgba(4, 8, 13, 0.85) !important;
       backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--blue-dim);
+      border-bottom: 1px solid var(--cyan-dim);
     }
     #navbar .navbar-brand {
-      color: var(--blue) !important;
+      color: var(--cyan) !important;
       font-family: 'Orbitron', sans-serif;
       font-weight: 700;
       letter-spacing: 0.08em;
-      text-shadow: 0 0 10px rgba(94, 200, 255, 0.5);
+      text-shadow: 0 0 10px rgba(63, 215, 255, 0.5);
     }
     #navbar .nav-link {
       color: var(--text-muted) !important;
@@ -57,9 +65,9 @@
       letter-spacing: 0.06em;
       transition: color var(--ease);
     }
-    #navbar .nav-link::before { content: "// "; color: var(--blue-dim); }
-    #navbar .nav-link:hover { color: var(--gold) !important; }
-    #navbar .navbar-toggler { border-color: var(--blue-dim); }
+    #navbar .nav-link::before { content: "// "; color: var(--cyan-dim); }
+    #navbar .nav-link:hover { color: var(--orange) !important; }
+    #navbar .navbar-toggler { border-color: var(--cyan-dim); }
 
     /* === Layout === */
     .sheet { max-width: 1000px; margin: 0 auto; padding: 3rem 1rem; position: relative; }
@@ -69,58 +77,53 @@
       font-family: 'Orbitron', sans-serif;
       text-transform: uppercase; letter-spacing: 0.06em;
       font-size: 1.25rem;
-      border-bottom: 1px solid var(--blue-dim);
+      border-bottom: 1px solid var(--cyan-dim);
       padding-bottom: 0.6rem;
       margin-bottom: 1.75rem;
-      text-shadow: 0 0 8px rgba(94, 200, 255, 0.3);
+      text-shadow: 0 0 8px rgba(63, 215, 255, 0.3);
     }
     h2.hud-heading .tag {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 0.72rem;
-      background: var(--blue);
+      background: var(--cyan);
       color: var(--bg);
       padding: 0.2rem 0.6rem;
       clip-path: polygon(6px 0, 100% 0, 100% 100%, 0 100%, 0 6px);
       text-shadow: none;
     }
 
-    /* === Hero: two-wire magnetic field — flowing streamlines + magnitude-colored arrows === */
+    /* === Hero: turbo-colormap 3D surface as full background, antenna standing on it === */
     header.hero {
       position: relative; overflow: hidden;
-      display: flex; align-items: center; justify-content: center;
-      padding: 3rem 1rem 2.5rem; text-align: center;
-      min-height: 900px; background: #03060d;
+      padding: 4rem 1rem 3.5rem; text-align: center;
+      min-height: 520px; background: #030608;
     }
-    @media (max-width: 480px) { header.hero { min-height: 760px; padding: 2.5rem 1rem 2rem; } }
+    @media (max-width: 480px) { header.hero { min-height: 400px; } }
 
-    /* Sources sit at y=±0.5 in field space; the panel below is centered at
-       y=0 — exactly the midpoint between the two wires — so it always lands
-       in the gap between them regardless of viewport size. */
-    #fieldTrails, #fieldArrows {
+    canvas#turboSurface {
       position: absolute; inset: 0; display: block; width: 100%; height: 100%;
-      -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 0%, black 55%, transparent 90%);
-      mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 0%, black 55%, transparent 90%);
+      -webkit-mask-image: radial-gradient(ellipse 65% 60% at 50% 48%, black 0%, black 55%, transparent 88%);
+      mask-image: radial-gradient(ellipse 65% 60% at 50% 48%, black 0%, black 55%, transparent 88%);
     }
     .hero-scrim {
       position: absolute; inset: 0; z-index: 1; pointer-events: none;
-      background: radial-gradient(ellipse 50% 40% at 50% 50%, rgba(3, 6, 13, 0.5) 0%, rgba(3, 6, 13, 0.15) 55%, transparent 78%);
+      background: radial-gradient(ellipse 55% 50% at 50% 55%, rgba(3, 6, 8, 0.6) 0%, rgba(3, 6, 8, 0.2) 50%, transparent 75%);
     }
+    .scan-tag {
+      position: absolute; top: 1rem; left: 1rem; z-index: 2;
+      font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--text-muted); text-align: left;
+    }
+    .scan-tag .live { color: var(--orange); }
+    .scan-tag .live::before { content: "● "; }
 
-    /* The panel itself is the "background rectangle" behind the title/desc. */
-    .hud-frame {
-      position: relative; z-index: 2; max-width: 640px;
-      background: rgba(10, 26, 46, 0.9);
-      border: 1px solid var(--blue-dim);
-      padding: 1.75rem 2rem;
-      clip-path: polygon(18px 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%, 0 18px);
-    }
-    @media (max-width: 480px) { .hud-frame { padding: 1.25rem 1.25rem; } }
+    .hud-frame { position: relative; z-index: 2; max-width: 640px; margin: 0 auto; }
     .hud-row {
       display: flex; justify-content: center; gap: 0.6rem; flex-wrap: wrap;
       font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase;
       margin-bottom: 0.6rem; color: var(--text-muted);
     }
-    .hud-row .v { color: var(--blue); }
+    .hud-row .v { color: var(--cyan); }
     .hud-name {
       font-family: 'Orbitron', sans-serif;
       font-weight: 900;
@@ -128,25 +131,20 @@
       letter-spacing: 0.04em;
       margin: 1rem 0;
       color: var(--text);
-      text-shadow: 0 0 18px rgba(94, 200, 255, 0.45);
+      text-shadow: 0 0 18px rgba(63, 215, 255, 0.45);
     }
-    .hud-spec { color: var(--blue); }
-    .hud-eq {
-      margin-top: 0.9rem; font-size: 0.85rem; letter-spacing: 0.02em;
-      color: var(--text-muted); text-transform: none;
-    }
-    .hud-eq .g { color: var(--gold); }
+    .hud-spec { color: var(--cyan); }
 
     /* === Cards === */
     .card {
       background-color: var(--panel) !important;
-      border: 1px solid var(--blue-dim) !important;
+      border: 1px solid var(--cyan-dim) !important;
       border-radius: 0 !important;
       clip-path: polygon(18px 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%, 0 18px);
       transition: border-color var(--ease), box-shadow var(--ease), transform var(--ease);
       overflow: hidden;
     }
-    .card:hover { border-color: var(--blue) !important; box-shadow: 0 0 22px rgba(94, 200, 255, 0.2); transform: translateY(-3px); }
+    .card:hover { border-color: var(--cyan) !important; box-shadow: 0 0 22px rgba(63, 215, 255, 0.2); transform: translateY(-3px); }
 
     .card-title {
       color: var(--text) !important;
@@ -158,7 +156,7 @@
     }
     .card-text { color: var(--text-muted) !important; font-size: 0.875rem; }
 
-    .badge { background: transparent !important; border: 1px solid var(--gold); color: var(--gold) !important; border-radius: 0 !important; font-family: 'IBM Plex Mono', monospace !important; }
+    .badge { background: transparent !important; border: 1px solid var(--orange); color: var(--orange) !important; border-radius: 0 !important; font-family: 'IBM Plex Mono', monospace !important; }
     .badge::before { content: "["; }
     .badge::after { content: "]"; }
 
@@ -169,65 +167,68 @@
       letter-spacing: 0.03em;
       clip-path: polygon(10px 0, 100% 0, 100% 100%, 10px 100%, 0 calc(100% - 10px), 0 10px);
     }
-    .btn-primary { background: transparent !important; border: 1px solid var(--blue) !important; color: var(--blue) !important; }
-    .btn-primary:hover { background: var(--blue) !important; color: var(--bg) !important; box-shadow: 0 0 18px rgba(94, 200, 255, 0.4); }
-    .btn-secondary { background: transparent !important; border: 1px solid var(--blue-dim) !important; color: var(--text-muted) !important; }
-    .btn-secondary:hover { border-color: var(--blue) !important; color: var(--blue) !important; }
+    .btn-primary { background: transparent !important; border: 1px solid var(--cyan) !important; color: var(--cyan) !important; }
+    .btn-primary:hover { background: var(--cyan) !important; color: var(--bg) !important; box-shadow: 0 0 18px rgba(63, 215, 255, 0.4); }
+    .btn-secondary { background: transparent !important; border: 1px solid var(--cyan-dim) !important; color: var(--text-muted) !important; }
+    .btn-secondary:hover { border-color: var(--cyan) !important; color: var(--cyan) !important; }
 
     /* === Course toggle === */
     .course-toggle { cursor: pointer; user-select: none; transition: background-color var(--ease); }
-    .course-toggle:hover { background-color: var(--blue-dim); }
+    .course-toggle:hover { background-color: var(--cyan-dim); }
     .course-chevron { font-size: 0.65rem; color: var(--text-muted); transition: transform var(--ease); flex-shrink: 0; }
-    .course-toggle[aria-expanded="true"] .course-chevron { transform: rotate(180deg); color: var(--gold); }
-    .course-details { border-top: 1px solid var(--blue-dim); padding: 0.75rem 1rem; }
+    .course-toggle[aria-expanded="true"] .course-chevron { transform: rotate(180deg); color: var(--orange); }
+    .course-details { border-top: 1px solid var(--cyan-dim); padding: 0.75rem 1rem; }
     .course-details ul { padding-left: 1.1rem; font-size: 0.85rem; color: var(--text-muted); }
-    .course-details a { color: var(--gold); }
+    .course-details a { color: var(--cyan); }
 
     /* === Inactive projects === */
     .inactive-projects-toggle {
       display: flex; align-items: center; justify-content: space-between;
       width: 100%; max-width: 1000px; padding: 0.6rem 1rem;
-      background: transparent; border: 1px dashed var(--blue-dim);
+      background: transparent; border: 1px dashed var(--cyan-dim);
       color: var(--text-muted); font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem;
       letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer;
       transition: border-color var(--ease), color var(--ease);
     }
-    .inactive-projects-toggle:hover { border-color: var(--blue); color: var(--blue); }
+    .inactive-projects-toggle:hover { border-color: var(--cyan); color: var(--cyan); }
     .inactive-projects-chevron { transition: transform var(--ease); }
     .inactive-projects-toggle[aria-expanded="true"] .inactive-projects-chevron { transform: rotate(180deg); }
 
     /* === Footer === */
     .footer {
       max-width: 1000px; margin: 0 auto; padding: 2rem 1rem 1.5rem;
-      border-top: 1px solid var(--blue-dim);
+      border-top: 1px solid var(--cyan-dim);
       text-align: center; color: var(--text-muted); font-size: 0.85rem;
     }
     .footer h2 {
       font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: 0.85rem;
-      letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue); border: none; margin-bottom: 0.75rem;
-      text-shadow: 0 0 8px rgba(94, 200, 255, 0.4);
+      letter-spacing: 0.15em; text-transform: uppercase; color: var(--cyan); border: none; margin-bottom: 0.75rem;
+      text-shadow: 0 0 8px rgba(63, 215, 255, 0.4);
     }
     .footer .links a { margin: 0 0.9rem; color: var(--text-muted); text-decoration: none; transition: color var(--ease); }
-    .footer .links a::before { content: "["; color: var(--blue-dim); }
-    .footer .links a::after { content: "]"; color: var(--blue-dim); }
-    .footer .links a:hover { color: var(--gold); }
+    .footer .links a::before { content: "["; color: var(--cyan-dim); }
+    .footer .links a::after { content: "]"; color: var(--cyan-dim); }
+    .footer .links a:hover { color: var(--orange); }
   </style>
 </head>
 
 <body>
+  <div class="concept-ribbon">RF10 · TURBO SURFACE</div>
+
   <div id="navbar"></div>
   <script src="/global/navbar.js"></script>
 
   <!-- Hero -->
   <header class="hero" id="about">
-    <canvas id="fieldTrails" aria-hidden="true"></canvas>
-    <canvas id="fieldArrows" aria-label="Animated magnetic field of two antiparallel line currents: flowing streamlines and magnitude-colored field arrows circulating around each wire."></canvas>
+    <canvas id="turboSurface" aria-label="Animated 3D radiating far-field surface rendered with Google's Turbo colormap, with an antenna mast standing at its source.">
+      Your browser does not support canvas rendering.
+    </canvas>
     <div class="hero-scrim"></div>
+    <div class="scan-tag">// Far-field surface — turbo colormap<br><span class="live">live</span></div>
     <div class="hud-frame">
       <h1 class="hud-name">Hey, I'm elektroedde</h1>
       <div class="hud-row"><span>ROLE:</span><span class="v">Electrical Engineering Student</span></div>
       <div class="hud-row"><span>SPEC:</span><span class="v hud-spec">Electrodynamics // Photonics // Computational Physics</span></div>
-      <p class="hud-eq">∇ × <span class="g">E</span> = −∂<span class="g">B</span>/∂t &nbsp;·&nbsp; ∇ × <span class="g">B</span> = μ₀<span class="g">J</span> + μ₀ε₀∂<span class="g">E</span>/∂t</p>
     </div>
   </header>
 
@@ -450,7 +451,7 @@
             <div class="card-body">
               <div class="d-flex align-items-center gap-2 mb-1">
                 <h5 class="card-title mb-0">Interactive FEM Solver and Visualization Tool</h5>
-                <span class="badge" style="color: var(--text-muted); border-color: var(--blue-dim);">SHELVED</span>
+                <span class="badge" style="color: var(--text-muted); border-color: var(--cyan-dim);">SHELVED</span>
               </div>
               <p class="card-text">A graphical user interface application used for solving finite element method problems.</p>
               <p class="card-text"><small>Latest update: Feb 7, 2026 &mdash; Project abandoned</small></p>
@@ -465,228 +466,198 @@
   <div id="footer"></div>
   <script src="/global/footer.js"></script>
 
-  <!-- Two antiparallel line currents: flowing streamlines + magnitude-colored field arrows -->
+  <!-- Turbo-colormap animated 3D radiating surface -->
   <script>
     (function () {
-      var trailCanvas = document.getElementById('fieldTrails');
-      var arrowCanvas = document.getElementById('fieldArrows');
-      if (!trailCanvas || !arrowCanvas || !trailCanvas.getContext) return;
-      var tctx = trailCanvas.getContext('2d');
-      var actx = arrowCanvas.getContext('2d');
+      // Google's published Turbo colormap polynomial approximation
+      // (Anton Mikhailov, Google AI — "Turbo, An Improved Rainbow Colormap for Visualization").
+      // x in [0,1] -> {r,g,b} in [0,255]
+      function turboColor(x) {
+        x = x < 0 ? 0 : x > 1 ? 1 : x;
+        var r4 = [0.13572138, 4.61539260, -42.66032258, 132.13108234];
+        var g4 = [0.09140261, 2.19418839, 4.84296658, -14.18503333];
+        var b4 = [0.10667330, 12.64194608, -60.58204836, 110.36276771];
+        var r2 = [-152.94239396, 59.28637943];
+        var g2 = [4.27729857, 2.82956604];
+        var b2 = [-89.90310912, 27.34824973];
+        var x2 = x * x, x3 = x2 * x, x4 = x2 * x2, x5 = x4 * x;
+        var r = r4[0] + r4[1] * x + r4[2] * x2 + r4[3] * x3 + r2[0] * x4 + r2[1] * x5;
+        var g = g4[0] + g4[1] * x + g4[2] * x2 + g4[3] * x3 + g2[0] * x4 + g2[1] * x5;
+        var b = b4[0] + b4[1] * x + b4[2] * x2 + b4[3] * x3 + b2[0] * x4 + b2[1] * x5;
+        var c = function (v) { v = Math.round(v * 255); return v < 0 ? 0 : v > 255 ? 255 : v; };
+        return 'rgb(' + c(r) + ',' + c(g) + ',' + c(b) + ')';
+      }
+
+      var canvas = document.getElementById('turboSurface');
+      if (!canvas || !canvas.getContext) return;
+      var ctx = canvas.getContext('2d');
       var dpr = Math.min(window.devicePixelRatio || 1, 2);
-      var BG = '#03060d';
+      var N = 30; // grid divisions
       var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      // Two infinite line currents, opposite direction: × into the page (top), • out of the page (bottom).
-      var SRC = [
-        { x: 0, y: 0.5, s: -1 },
-        { x: 0, y: -0.5, s: 1 }
-      ];
-
-      function field(x, y) {
-        var bx = 0, by = 0;
-        for (var i = 0; i < SRC.length; i++) {
-          var src = SRC[i];
-          var dx = x - src.x, dy = y - src.y;
-          var r2 = dx * dx + dy * dy;
-          if (r2 < 0.006) r2 = 0.006;
-          bx += src.s * (-dy) / r2;
-          by += src.s * (dx) / r2;
+      // Precompute grid (x,y) and a back-to-front draw order (stable across frames).
+      var grid = [];
+      for (var iy = 0; iy <= N; iy++) {
+        var row = [];
+        for (var ix = 0; ix <= N; ix++) {
+          row.push({ x: (ix / N) * 2 - 1, y: (iy / N) * 2 - 1 });
         }
-        return { bx: bx, by: by };
+        grid.push(row);
       }
-
-      // Small hand-picked green -> yellow -> orange -> red magnitude colormap.
-      var STOPS = [
-        [0.00, [32, 120, 90]],
-        [0.30, [130, 195, 60]],
-        [0.55, [250, 215, 50]],
-        [0.78, [250, 140, 40]],
-        [1.00, [225, 45, 35]]
-      ];
-      function magColor(t) {
-        t = t < 0 ? 0 : t > 1 ? 1 : t;
-        for (var i = 0; i < STOPS.length - 1; i++) {
-          var a = STOPS[i], b = STOPS[i + 1];
-          if (t >= a[0] && t <= b[0]) {
-            var f = (t - a[0]) / (b[0] - a[0]);
-            var r = a[1][0] + (b[1][0] - a[1][0]) * f;
-            var g = a[1][1] + (b[1][1] - a[1][1]) * f;
-            var bl = a[1][2] + (b[1][2] - a[1][2]) * f;
-            return 'rgb(' + (r | 0) + ',' + (g | 0) + ',' + (bl | 0) + ')';
-          }
-        }
-        var last = STOPS[STOPS.length - 1][1];
-        return 'rgb(' + last[0] + ',' + last[1] + ',' + last[2] + ')';
+      var order = [];
+      for (var qy = 0; qy < N; qy++) {
+        for (var qx = 0; qx < N; qx++) order.push({ ix: qx, iy: qy, depth: qx + qy });
       }
-
-      function toScreen(x, y, cx, cy, S) {
-        return { sx: cx + x * S, sy: cy - y * S };
-      }
-      function dist(x1, y1, x2, y2) { var dx = x1 - x2, dy = y1 - y2; return Math.sqrt(dx * dx + dy * dy); }
+      order.sort(function (a, b) { return a.depth - b.depth; });
 
       function resize() {
-        [trailCanvas, arrowCanvas].forEach(function (c) {
-          var rect = c.getBoundingClientRect();
-          c.width = Math.max(1, Math.round(rect.width * dpr));
-          c.height = Math.max(1, Math.round(rect.height * dpr));
-        });
-        tctx.fillStyle = BG;
-        tctx.fillRect(0, 0, trailCanvas.width, trailCanvas.height);
+        var rect = canvas.getBoundingClientRect();
+        canvas.width = Math.max(1, Math.round(rect.width * dpr));
+        canvas.height = Math.max(1, Math.round(rect.height * dpr));
       }
       window.addEventListener('resize', resize);
       resize();
 
-      // === Flowing streamline particles (fine background texture) ===
-      var particles = [];
-      function respawn(p) {
-        p.x = (Math.random() * 2 - 1) * 1.3;
-        p.y = (Math.random() * 2 - 1) * 1.05;
-        p.px = p.x; p.py = p.y;
-        p.age = 0;
-        p.maxAge = 60 + Math.random() * 120;
-      }
-      for (var i = 0; i < 260; i++) {
-        var p = {};
-        respawn(p);
-        p.age = Math.random() * p.maxAge;
-        particles.push(p);
+      // The field is driven from its own center — the antenna's base bobs with
+      // the local wave value, as if it were the source feeding the radiation.
+      function waveHeight(x, y, t) {
+        var r = Math.sqrt(x * x + y * y);
+        var envelope = Math.exp(-r * r * 1.15);
+        return Math.sin(r * 9.0 - t * 1.8) * envelope;
       }
 
-      function stepParticle(p) {
-        var f = field(p.x, p.y);
-        var mag = Math.sqrt(f.bx * f.bx + f.by * f.by) || 1;
-        var speed = Math.min(0.9, 0.15 + mag * 0.05);
-        p.x += (f.bx / mag) * speed * (1 / 60);
-        p.y += (f.by / mag) * speed * (1 / 60);
+      function projectPoint(x, y, z, cx, cy, iso) {
+        return {
+          sx: cx + (x - y) * iso * 0.866,
+          sy: cy + (x + y) * iso * 0.5 - z * iso * 0.42
+        };
       }
 
-      function drawTrails() {
-        var w = trailCanvas.width, h = trailCanvas.height;
-        tctx.fillStyle = 'rgba(3, 6, 13, 0.10)';
-        tctx.fillRect(0, 0, w, h);
-        var cx = w / 2, cy = h * 0.5, S = Math.min(w, h) * 0.46;
-        tctx.strokeStyle = 'rgba(150, 200, 255, 0.5)';
-        tctx.lineWidth = Math.max(1, dpr);
-        for (var i = 0; i < particles.length; i++) {
-          var p = particles[i];
-          var s0 = toScreen(p.px, p.py, cx, cy, S);
-          stepParticle(p);
-          var s1 = toScreen(p.x, p.y, cx, cy, S);
-          tctx.beginPath();
-          tctx.moveTo(s0.sx, s0.sy);
-          tctx.lineTo(s1.sx, s1.sy);
-          tctx.stroke();
-          p.px = p.x; p.py = p.y;
-          p.age++;
-          if (p.age > p.maxAge || Math.abs(p.x) > 1.5 || Math.abs(p.y) > 1.2) respawn(p);
-        }
-      }
+      function drawAntenna(t, cx, cy, iso, reduceMotion) {
+        var baseZ = waveHeight(0, 0, t);
+        var mastTopZ = baseZ + 1.9;
+        var base = projectPoint(0, 0, baseZ, cx, cy, iso);
+        var top = projectPoint(0, 0, mastTopZ, cx, cy, iso);
+        var crossZ = baseZ + 1.55;
+        var crossL = projectPoint(-0.16, 0.16, crossZ, cx, cy, iso);
+        var crossR = projectPoint(0.16, -0.16, crossZ, cx, cy, iso);
+        var dishZ = baseZ + 1.25;
+        var dishCenter = projectPoint(0.32, 0.1, dishZ, cx, cy, iso);
+        var dishEdge = projectPoint(0.32, 0.42, dishZ + 0.12, cx, cy, iso);
+        var dishRadius = Math.hypot(dishEdge.sx - dishCenter.sx, dishEdge.sy - dishCenter.sy) || iso * 0.05;
 
-      function drawStaticStreamlines() {
-        var w = trailCanvas.width, h = trailCanvas.height;
-        var cx = w / 2, cy = h * 0.5, S = Math.min(w, h) * 0.46;
-        tctx.strokeStyle = 'rgba(150, 200, 255, 0.45)';
-        tctx.lineWidth = Math.max(1, dpr);
-        for (var i = 0; i < 46; i++) {
-          var x = (Math.random() * 2 - 1) * 1.3, y = (Math.random() * 2 - 1) * 1.05;
-          var s = toScreen(x, y, cx, cy, S);
-          tctx.beginPath();
-          tctx.moveTo(s.sx, s.sy);
-          for (var step = 0; step < 70; step++) {
-            var f = field(x, y);
-            var mag = Math.sqrt(f.bx * f.bx + f.by * f.by) || 1;
-            var speed = Math.min(0.9, 0.15 + mag * 0.05);
-            x += (f.bx / mag) * speed * 0.05;
-            y += (f.by / mag) * speed * 0.05;
-            if (Math.abs(x) > 1.5 || Math.abs(y) > 1.2) break;
-            s = toScreen(x, y, cx, cy, S);
-            tctx.lineTo(s.sx, s.sy);
-          }
-          tctx.stroke();
-        }
-      }
+        ctx.lineCap = 'round';
 
-      // === Magnitude-colored arrow grid + source markers ===
-      function drawArrow(x, y, angle, len, color) {
-        var hx = Math.cos(angle), hy = Math.sin(angle);
-        var x0 = x - hx * len * 0.5, y0 = y - hy * len * 0.5;
-        var x1 = x + hx * len * 0.5, y1 = y + hy * len * 0.5;
-        actx.strokeStyle = color; actx.fillStyle = color;
-        actx.lineWidth = Math.max(1.2, len * 0.09);
-        actx.lineCap = 'round';
-        actx.beginPath(); actx.moveTo(x0, y0); actx.lineTo(x1, y1); actx.stroke();
-        var headLen = len * 0.42;
-        var a1 = angle + Math.PI * 0.82, a2 = angle - Math.PI * 0.82;
-        actx.beginPath();
-        actx.moveTo(x1, y1);
-        actx.lineTo(x1 + Math.cos(a1) * headLen, y1 + Math.sin(a1) * headLen);
-        actx.lineTo(x1 + Math.cos(a2) * headLen, y1 + Math.sin(a2) * headLen);
-        actx.closePath();
-        actx.fill();
-      }
-
-      function drawSourceMarkers(cx, cy, S) {
-        SRC.forEach(function (src) {
-          var p = toScreen(src.x, src.y, cx, cy, S);
-          var r = Math.max(14, S * 0.075);
-          actx.beginPath();
-          actx.arc(p.sx, p.sy, r, 0, Math.PI * 2);
-          actx.fillStyle = BG;
-          actx.fill();
-          actx.lineWidth = Math.max(1.5, r * 0.09);
-          actx.strokeStyle = '#eaf3ff';
-          actx.stroke();
-          if (src.s < 0) {
-            var k = r * 0.42;
-            actx.beginPath();
-            actx.moveTo(p.sx - k, p.sy - k); actx.lineTo(p.sx + k, p.sy + k);
-            actx.moveTo(p.sx + k, p.sy - k); actx.lineTo(p.sx - k, p.sy + k);
-            actx.lineWidth = Math.max(1.2, r * 0.16);
-            actx.stroke();
-          } else {
-            actx.beginPath();
-            actx.arc(p.sx, p.sy, r * 0.32, 0, Math.PI * 2);
-            actx.fillStyle = '#eaf3ff';
-            actx.fill();
-          }
+        // guy wires anchoring the mast to the ground plane
+        ctx.strokeStyle = 'rgba(180, 200, 210, 0.35)';
+        ctx.lineWidth = Math.max(1, iso * 0.006);
+        [[0.5, 0], [-0.35, -0.35], [-0.1, 0.5]].forEach(function (anchor) {
+          var groundZ = waveHeight(anchor[0], anchor[1], t);
+          var a = projectPoint(anchor[0], anchor[1], groundZ, cx, cy, iso);
+          var midZ = baseZ + 1.1;
+          var m = projectPoint(anchor[0] * 0.15, anchor[1] * 0.15, midZ, cx, cy, iso);
+          ctx.beginPath();
+          ctx.moveTo(a.sx, a.sy);
+          ctx.lineTo(m.sx, m.sy);
+          ctx.stroke();
         });
+
+        // mast
+        ctx.strokeStyle = '#dce8ee';
+        ctx.lineWidth = Math.max(1.5, iso * 0.012);
+        ctx.beginPath();
+        ctx.moveTo(base.sx, base.sy);
+        ctx.lineTo(top.sx, top.sy);
+        ctx.stroke();
+
+        // cross-brace
+        ctx.lineWidth = Math.max(1, iso * 0.008);
+        ctx.beginPath();
+        ctx.moveTo(crossL.sx, crossL.sy);
+        ctx.lineTo(crossR.sx, crossR.sy);
+        ctx.stroke();
+
+        // dish
+        ctx.beginPath();
+        ctx.ellipse(dishCenter.sx, dishCenter.sy, dishRadius * 1.7, dishRadius, -0.5, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(220, 232, 238, 0.9)';
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(63, 215, 255, 0.8)';
+        ctx.lineWidth = Math.max(1, iso * 0.006);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(dishCenter.sx, dishCenter.sy);
+        ctx.lineTo(top.sx, top.sy + (dishCenter.sy - top.sy) * 0.05);
+        ctx.strokeStyle = 'rgba(220, 232, 238, 0.6)';
+        ctx.lineWidth = Math.max(1, iso * 0.005);
+        ctx.stroke();
+
+        // blinking beacon on top
+        var pulse = reduceMotion ? 1 : 0.55 + 0.45 * Math.sin(t * 3.1);
+        var beaconR = Math.max(2, iso * 0.02);
+        ctx.beginPath();
+        ctx.arc(top.sx, top.sy, beaconR * 2.4, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255, 90, 70, ' + (pulse * 0.25) + ')';
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(top.sx, top.sy, beaconR, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255, 110, 80, ' + (0.6 + pulse * 0.4) + ')';
+        ctx.fill();
       }
 
-      function drawArrows() {
-        var w = arrowCanvas.width, h = arrowCanvas.height;
-        actx.clearRect(0, 0, w, h);
-        var cx = w / 2, cy = h * 0.5, S = Math.min(w, h) * 0.46;
-        var cols = 15, rows = 9;
-        for (var iy = 0; iy < rows; iy++) {
-          for (var ix = 0; ix < cols; ix++) {
-            var gx = (ix + 0.5) / cols * 2.6 - 1.3;
-            var gy = (iy + 0.5) / rows * 2.1 - 1.05;
-            if (Math.min(dist(gx, gy, SRC[0].x, SRC[0].y), dist(gx, gy, SRC[1].x, SRC[1].y)) < 0.16) continue;
-            var f = field(gx, gy);
-            var mag = Math.sqrt(f.bx * f.bx + f.by * f.by);
-            var angle = Math.atan2(-f.by, f.bx);
-            var color = magColor(mag / (mag + 2.4));
-            var center = toScreen(gx, gy, cx, cy, S);
-            var len = (10 + Math.min(mag, 6) * 2.2) * dpr;
-            drawArrow(center.sx, center.sy, angle, len, color);
+      function draw(t) {
+        var w = canvas.width, h = canvas.height;
+        ctx.clearRect(0, 0, w, h);
+        var cx = w / 2, cy = h * 0.56;
+        var iso = Math.min(w, h) * 0.62;
+
+        // project all grid points once per frame
+        var proj = [];
+        for (var iy2 = 0; iy2 <= N; iy2++) {
+          var prow = [];
+          for (var ix2 = 0; ix2 <= N; ix2++) {
+            var gp = grid[iy2][ix2];
+            var hgt = waveHeight(gp.x, gp.y, t);
+            var s = projectPoint(gp.x, gp.y, hgt, cx, cy, iso);
+            s.hgt = hgt;
+            prow.push(s);
           }
+          proj.push(prow);
         }
-        drawSourceMarkers(cx, cy, S);
+
+        for (var i = 0; i < order.length; i++) {
+          var ix = order[i].ix, iy = order[i].iy;
+          var p00 = proj[iy][ix], p10 = proj[iy][ix + 1], p11 = proj[iy + 1][ix + 1], p01 = proj[iy + 1][ix];
+          var avgH = (p00.hgt + p10.hgt + p11.hgt + p01.hgt) / 4;
+          ctx.beginPath();
+          ctx.moveTo(p00.sx, p00.sy);
+          ctx.lineTo(p10.sx, p10.sy);
+          ctx.lineTo(p11.sx, p11.sy);
+          ctx.lineTo(p01.sx, p01.sy);
+          ctx.closePath();
+          ctx.fillStyle = turboColor((avgH + 1) / 2);
+          ctx.fill();
+          ctx.strokeStyle = 'rgba(3, 6, 8, 0.35)';
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+
+        // The antenna stands at the source of the field (world origin) and
+        // rises well above the terrain's height range, so drawing it on top
+        // of the finished surface reads correctly from this camera angle.
+        drawAntenna(t, cx, cy, iso, reduceMotion);
       }
 
       if (reduceMotion) {
-        tctx.fillStyle = BG;
-        tctx.fillRect(0, 0, trailCanvas.width, trailCanvas.height);
-        drawStaticStreamlines();
-        drawArrows();
+        draw(0);
       } else {
-        for (var warm = 0; warm < 50; warm++) drawTrails();
-        (function loop() {
-          drawTrails();
-          drawArrows();
-          requestAnimationFrame(loop);
-        })();
+        var start = null;
+        function frame(ts) {
+          if (start === null) start = ts;
+          draw((ts - start) / 1000);
+          requestAnimationFrame(frame);
+        }
+        requestAnimationFrame(frame);
       }
     })();
   </script>

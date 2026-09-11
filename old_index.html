@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>elektroedde</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <!-- Navigation Bar -->
+  <div id="navbar"></div>
+
+  <script src="/global/navbar.js"></script>
+
+
+  <!-- Hero Section -->
+  <header class="hero" id="about">
+    <h1>Hey, I’m <span class="rainbow-text">elektroedde</span></h1>
+    <p>Electrical Engineering Student</p>
+    <p>Specializing in <span class="highlight">Electrodynamics</span>, <span class="highlight">Photonics</span>, and <span class="highlight">Computational Physics</span></p>
+  </header>
+
+  <!-- Projects Section -->
+  <section class="projects">
+    <h2>Projects</h2>
+
+    <div class="card mb-3 project-card" style="max-width: 1000px;">
+      <div class="row g-0">
+        <div class="col-md-4" style="position: relative; overflow: hidden; min-height: 190px;">
+          <video src="images/home/elektroengine_cover.mp4" autoplay loop muted playsinline style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius) 0 0 var(--radius);"></video>
+        </div>
+        <div class="col-md-8 d-flex flex-column">
+          <div class="card-body d-flex flex-column flex-grow-1">
+            <div class="d-flex align-items-center gap-2 mb-1">
+              <h5 class="card-title mb-0">ElektroEngine</h5>
+              <span class="badge" style="background-color: var(--accent); color: #000; font-size: 0.7rem; letter-spacing: 0.05em;">ACTIVE</span>
+            </div>
+            <p class="card-text">A math &amp; physics engine built with Swift Metal and C++. Real-time rendering and graphics programming for simulating physical systems.</p>
+            <p class="card-text"><small class="text-body-secondary">Swift · Metal · C++ · Graphics Programming</small></p>
+            <a href="/projects/elektroengine.html" class="btn btn-primary mt-auto" style="align-self: flex-start;">Check it out!</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mb-3 project-card" style="max-width: 1000px;">
+      <div class="row g-0">
+        <div class="col-md-4" style="position: relative; overflow: hidden; min-height: 190px;">
+          <img src="images/projects/compphysbook.jpg" alt="Computational Physics Book" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 5%; border-radius: var(--radius) 0 0 var(--radius);">
+        </div>
+        <div class="col-md-8 d-flex flex-column">
+          <div class="card-body d-flex flex-column flex-grow-1">
+            <div class="d-flex align-items-center gap-2 mb-1">
+              <h5 class="card-title mb-0">Computational Physics</h5>
+              <span class="badge" style="background-color: var(--accent); color: #000; font-size: 0.7rem; letter-spacing: 0.05em;">ACTIVE</span>
+            </div>
+            <p class="card-text">Solving every problem in this book.</p>
+            <p class="card-text"><small class="text-body-secondary">Computational Physics · Numerical Methods · Python</small></p>
+            <a href="https://github.com/elektroedde/ComputationalPhysicsBook" class="btn btn-primary mt-auto" style="align-self: flex-start;" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mb-3 project-card" style="max-width: 1000px;">
+      <div class="row g-0">
+        <div class="col-md-4" style="position: relative; overflow: hidden; min-height: 190px;">
+          <img src="images/projects/electrogriffithsbook.jpg" alt="Electrodynamics Griffiths" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 95%; border-radius: var(--radius) 0 0 var(--radius);">
+        </div>
+        <div class="col-md-8 d-flex flex-column">
+          <div class="card-body d-flex flex-column flex-grow-1">
+            <div class="d-flex align-items-center gap-2 mb-1">
+              <h5 class="card-title mb-0">Introduction to Electrodynamics</h5>
+              <span class="badge" style="background-color: var(--accent); color: #000; font-size: 0.7rem; letter-spacing: 0.05em;">ACTIVE</span>
+            </div>
+            <p class="card-text">Solving every problem in this book.</p>
+            <p class="card-text"><small class="text-body-secondary">Electrodynamics · Classical Field Theory · Physics</small></p>
+            <a href="https://github.com/elektroedde/ElectrodynamicsGriffiths" class="btn btn-primary mt-auto" style="align-self: flex-start;" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+
+  <section class="badges">
+    <h2>Course Specialties</h2>
+
+    <!-- Cards Section -->
+    <div class="row row-cols-2 row-cols-md-3 g-4">
+      <div class="col">
+        <div class="card">
+          <img src="images/courses/electrodynamics.jpg" class="card-img-top" alt="..." />
+          <div class="card-body course-toggle d-flex justify-content-between align-items-center"
+               data-bs-toggle="collapse" data-bs-target="#course-em" aria-expanded="false">
+            <h5 class="card-title mb-0">Electrodynamics</h5>
+            <span class="course-chevron">&#9660;</span>
+          </div>
+          <div class="collapse" id="course-em">
+            <div class="course-details">
+              <ul class="card-text mb-0">
+                <li>Maxwell's equations</li>
+                <li>Electromagnetic waves</li>
+                <li><a href="https://kurser.lth.se/lot/course-syllabus/25_26/EITN80" target="_blank" rel="noopener noreferrer">Course Page</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card">
+          <img src="images/courses/laser.webp" class="card-img-top" alt="..." />
+          <div class="card-body course-toggle d-flex justify-content-between align-items-center"
+               data-bs-toggle="collapse" data-bs-target="#course-lasers" aria-expanded="false">
+            <h5 class="card-title mb-0">Lasers</h5>
+            <span class="course-chevron">&#9660;</span>
+          </div>
+          <div class="collapse" id="course-lasers">
+            <div class="course-details">
+              <ul class="card-text mb-0">
+                <li>Laser physics & cavity modes</li>
+                <li>Gaussian beam optics</li>
+                <li>Nonlinear optics</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card">
+          <img src="images/courses/fem.png" class="card-img-top" alt="..." />
+          <div class="card-body course-toggle d-flex justify-content-between align-items-center"
+               data-bs-toggle="collapse" data-bs-target="#course-fem" aria-expanded="false">
+            <h5 class="card-title mb-0">Finite Element Method</h5>
+            <span class="course-chevron">&#9660;</span>
+          </div>
+          <div class="collapse" id="course-fem">
+            <div class="course-details">
+              <ul class="card-text mb-0">
+                <li>Variational formulations</li>
+                <li>Mesh generation & refinement</li>
+                <li>Solving PDEs numerically</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card">
+          <img src="images/courses/antenna.jpg" class="card-img-top" alt="..." />
+          <div class="card-body course-toggle d-flex justify-content-between align-items-center"
+               data-bs-toggle="collapse" data-bs-target="#course-antenna" aria-expanded="false">
+            <h5 class="card-title mb-0">Antenna Technology</h5>
+            <span class="course-chevron">&#9660;</span>
+          </div>
+          <div class="collapse" id="course-antenna">
+            <div class="course-details">
+              <ul class="card-text mb-0">
+                <li>Radiation patterns & gain</li>
+                <li>Array antennas & beamforming</li>
+                <li>Impedance matching</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card">
+          <img src="images/courses/quantum.jpg" class="card-img-top" alt="..." />
+          <div class="card-body course-toggle d-flex justify-content-between align-items-center"
+               data-bs-toggle="collapse" data-bs-target="#course-quantum" aria-expanded="false">
+            <h5 class="card-title mb-0">Quantum Mechanics</h5>
+            <span class="course-chevron">&#9660;</span>
+          </div>
+          <div class="collapse" id="course-quantum">
+            <div class="course-details">
+              <ul class="card-text mb-0">
+                <li>Schrödinger equation</li>
+                <li>Operators & observables</li>
+                <li>Perturbation theory</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card">
+          <img src="images/courses/radar.jpg" class="card-img-top" alt="..." />
+          <div class="card-body course-toggle d-flex justify-content-between align-items-center"
+               data-bs-toggle="collapse" data-bs-target="#course-radar" aria-expanded="false">
+            <h5 class="card-title mb-0">Radar Technology</h5>
+            <span class="course-chevron">&#9660;</span>
+          </div>
+          <div class="collapse" id="course-radar">
+            <div class="course-details">
+              <ul class="card-text mb-0">
+                <li>Radar equation & cross-section</li>
+                <li>Pulse compression & waveforms</li>
+                <li>Doppler processing</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card">
+          <img src="images/courses/matrix.svg" class="card-img-top" alt="..." />
+          <div class="card-body course-toggle d-flex justify-content-between align-items-center"
+               data-bs-toggle="collapse" data-bs-target="#course-matrix" aria-expanded="false">
+            <h5 class="card-title mb-0">Matrix Theory</h5>
+            <span class="course-chevron">&#9660;</span>
+          </div>
+          <div class="collapse" id="course-matrix">
+            <div class="course-details">
+              <ul class="card-text mb-0">
+                <li>Eigenvalues & eigenvectors</li>
+                <li>Matrix decompositions</li>
+                <li>Linear systems & vector spaces</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Inactive Projects Section -->
+  <section class="projects" style="padding-top: 0;">
+    <button
+      class="inactive-projects-toggle"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#inactiveProjects"
+      aria-expanded="false"
+      aria-controls="inactiveProjects"
+    >
+      <span>Inactive Projects</span>
+      <span class="inactive-projects-chevron">&#9660;</span>
+    </button>
+
+    <div class="collapse" id="inactiveProjects">
+      <div class="card mb-3 mt-3" style="max-width: 1000px; opacity: 0.6;">
+        <div class="row g-0">
+          <div class="col-md-4" style="max-width: 100%;">
+            <img src="images/home/cover_image.png" class="img-fluid rounded-start" alt="FEM Solver" style="filter: grayscale(60%);">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <div class="d-flex align-items-center gap-2 mb-1">
+                <h5 class="card-title mb-0">Interactive FEM Solver and Visualization Tool</h5>
+                <span class="badge" style="background-color: #444; color: #aaa; font-size: 0.7rem; letter-spacing: 0.05em;">SHELVED</span>
+              </div>
+              <p class="card-text">A graphical user interface application used for solving finite element method problems.</p>
+              <p class="card-text"><small class="text-body-secondary">Latest update: Feb 7, 2026 &mdash; Project abandoned</small></p>
+              <a href="/projects/fem_application.html" class="btn btn-secondary btn-sm">View anyway</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer"></div>
+
+  <script src="/global/footer.js"></script>
+</body>
+
+</html>
