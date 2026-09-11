@@ -14,13 +14,13 @@
 
   <style>
     :root {
-      --bg: #03060d;
-      --panel: rgba(10, 26, 46, 0.5);
-      --blue: #5ec8ff;
-      --blue-dim: rgba(94, 200, 255, 0.25);
-      --gold: #fdd835;
-      --text: #e8f4ff;
-      --text-muted: rgba(232, 244, 255, 0.55);
+      --bg: #000000;
+      --panel: rgba(12, 10, 8, 0.9);
+      --blue: #6fd3ff;
+      --blue-dim: rgba(111, 211, 255, 0.25);
+      --hot: #ffb347;
+      --text: #f4ecec;
+      --text-muted: rgba(244, 236, 236, 0.55);
       --ease: 0.2s ease;
     }
 
@@ -29,7 +29,7 @@
 
     body {
       margin: 0;
-      background: radial-gradient(ellipse at 50% 0%, rgba(94, 200, 255, 0.08) 0%, transparent 55%), var(--bg);
+      background: var(--bg);
       color: var(--text);
       font-family: 'IBM Plex Mono', monospace;
     }
@@ -39,7 +39,7 @@
     /* === Navbar === */
     #navbar { position: sticky; top: 0; z-index: 1000; }
     #navbar nav.navbar {
-      background: rgba(3, 6, 13, 0.85) !important;
+      background: rgba(0, 0, 0, 0.85) !important;
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--blue-dim);
     }
@@ -48,7 +48,7 @@
       font-family: 'Orbitron', sans-serif;
       font-weight: 700;
       letter-spacing: 0.08em;
-      text-shadow: 0 0 10px rgba(94, 200, 255, 0.5);
+      text-shadow: 0 0 10px rgba(111, 211, 255, 0.5);
     }
     #navbar .nav-link {
       color: var(--text-muted) !important;
@@ -58,7 +58,7 @@
       transition: color var(--ease);
     }
     #navbar .nav-link::before { content: "// "; color: var(--blue-dim); }
-    #navbar .nav-link:hover { color: var(--gold) !important; }
+    #navbar .nav-link:hover { color: var(--hot) !important; }
     #navbar .navbar-toggler { border-color: var(--blue-dim); }
 
     /* === Layout === */
@@ -72,56 +72,40 @@
       border-bottom: 1px solid var(--blue-dim);
       padding-bottom: 0.6rem;
       margin-bottom: 1.75rem;
-      text-shadow: 0 0 8px rgba(94, 200, 255, 0.3);
+      text-shadow: 0 0 8px rgba(111, 211, 255, 0.3);
     }
     h2.hud-heading .tag {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 0.72rem;
       background: var(--blue);
-      color: var(--bg);
+      color: #000;
       padding: 0.2rem 0.6rem;
       clip-path: polygon(6px 0, 100% 0, 100% 100%, 0 100%, 0 6px);
       text-shadow: none;
     }
 
-    /* === Hero: two variants share identical sizing; only the canvas + copy differ === */
+    /* === Hero: black hole with orbiting accretion disk === */
     header.hero {
       position: relative; overflow: hidden;
-      display: flex; align-items: center; justify-content: center;
-      padding: 3rem 1rem 2.5rem; text-align: center;
-      min-height: 900px; background: #03060d;
+      display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+      padding: 2rem 1rem 3rem; text-align: center;
+      min-height: 820px; background: #000;
     }
-    @media (max-width: 480px) { header.hero { min-height: 760px; padding: 2.5rem 1rem 2rem; } }
+    @media (max-width: 480px) { header.hero { min-height: 680px; padding: 1.5rem 1rem 2.5rem; } }
 
-    /* One random variant is picked before first paint (see the inline script
-       right after <body>), which adds "variant-a" or "variant-b" to <body>.
-       Both heroes stay in the DOM; only the chosen one is shown, and only its
-       script actually runs (each script early-returns otherwise). */
-    header.hero-a, header.hero-b { display: none; }
-    body.variant-a header.hero-a { display: flex; }
-    body.variant-b header.hero-b { display: flex; }
-
-    /* Canvas mask: fades the field visualization gently at the edges.
-       Shared by both variants' canvases. */
-    #fieldTrailsA, #fieldArrowsA, #fieldArrowsB {
+    #bhTrails, #bhCrisp {
       position: absolute; inset: 0; display: block; width: 100%; height: 100%;
-      -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 0%, black 55%, transparent 90%);
-      mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 0%, black 55%, transparent 90%);
-    }
-    .hero-scrim {
-      position: absolute; inset: 0; z-index: 1; pointer-events: none;
-      background: radial-gradient(ellipse 50% 40% at 50% 50%, rgba(3, 6, 13, 0.5) 0%, rgba(3, 6, 13, 0.15) 55%, transparent 78%);
     }
 
-    /* The panel itself is the "background rectangle" behind the title/desc. */
     .hud-frame {
       position: relative; z-index: 2; max-width: 640px;
-      background: rgba(10, 26, 46, 0.9);
+      background: var(--panel);
       border: 1px solid var(--blue-dim);
       padding: 1.75rem 2rem;
       clip-path: polygon(18px 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%, 0 18px);
     }
     @media (max-width: 480px) { .hud-frame { padding: 1.25rem 1.25rem; } }
+
     .hud-row {
       display: flex; justify-content: center; gap: 0.6rem; flex-wrap: wrap;
       font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase;
@@ -135,25 +119,25 @@
       letter-spacing: 0.04em;
       margin: 1rem 0;
       color: var(--text);
-      text-shadow: 0 0 18px rgba(94, 200, 255, 0.45);
+      text-shadow: 0 0 18px rgba(255, 179, 71, 0.35);
     }
     .hud-spec { color: var(--blue); }
     .hud-eq {
       margin-top: 0.9rem; font-size: 0.85rem; letter-spacing: 0.02em;
       color: var(--text-muted); text-transform: none;
     }
-    .hud-eq .g { color: var(--gold); }
+    .hud-eq .g { color: var(--hot); }
 
     /* === Cards === */
     .card {
-      background-color: var(--panel) !important;
+      background-color: rgba(16, 12, 10, 0.7) !important;
       border: 1px solid var(--blue-dim) !important;
       border-radius: 0 !important;
       clip-path: polygon(18px 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%, 0 18px);
       transition: border-color var(--ease), box-shadow var(--ease), transform var(--ease);
       overflow: hidden;
     }
-    .card:hover { border-color: var(--blue) !important; box-shadow: 0 0 22px rgba(94, 200, 255, 0.2); transform: translateY(-3px); }
+    .card:hover { border-color: var(--blue) !important; box-shadow: 0 0 22px rgba(111, 211, 255, 0.2); transform: translateY(-3px); }
 
     .card-title {
       color: var(--text) !important;
@@ -165,7 +149,7 @@
     }
     .card-text { color: var(--text-muted) !important; font-size: 0.875rem; }
 
-    .badge { background: transparent !important; border: 1px solid var(--gold); color: var(--gold) !important; border-radius: 0 !important; font-family: 'IBM Plex Mono', monospace !important; }
+    .badge { background: transparent !important; border: 1px solid var(--hot); color: var(--hot) !important; border-radius: 0 !important; font-family: 'IBM Plex Mono', monospace !important; }
     .badge::before { content: "["; }
     .badge::after { content: "]"; }
 
@@ -177,7 +161,7 @@
       clip-path: polygon(10px 0, 100% 0, 100% 100%, 10px 100%, 0 calc(100% - 10px), 0 10px);
     }
     .btn-primary { background: transparent !important; border: 1px solid var(--blue) !important; color: var(--blue) !important; }
-    .btn-primary:hover { background: var(--blue) !important; color: var(--bg) !important; box-shadow: 0 0 18px rgba(94, 200, 255, 0.4); }
+    .btn-primary:hover { background: var(--blue) !important; color: #000 !important; box-shadow: 0 0 18px rgba(111, 211, 255, 0.4); }
     .btn-secondary { background: transparent !important; border: 1px solid var(--blue-dim) !important; color: var(--text-muted) !important; }
     .btn-secondary:hover { border-color: var(--blue) !important; color: var(--blue) !important; }
 
@@ -185,10 +169,10 @@
     .course-toggle { cursor: pointer; user-select: none; transition: background-color var(--ease); }
     .course-toggle:hover { background-color: var(--blue-dim); }
     .course-chevron { font-size: 0.65rem; color: var(--text-muted); transition: transform var(--ease); flex-shrink: 0; }
-    .course-toggle[aria-expanded="true"] .course-chevron { transform: rotate(180deg); color: var(--gold); }
+    .course-toggle[aria-expanded="true"] .course-chevron { transform: rotate(180deg); color: var(--hot); }
     .course-details { border-top: 1px solid var(--blue-dim); padding: 0.75rem 1rem; }
     .course-details ul { padding-left: 1.1rem; font-size: 0.85rem; color: var(--text-muted); }
-    .course-details a { color: var(--gold); }
+    .course-details a { color: var(--hot); }
 
     /* === Inactive projects === */
     .inactive-projects-toggle {
@@ -212,49 +196,30 @@
     .footer h2 {
       font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: 0.85rem;
       letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue); border: none; margin-bottom: 0.75rem;
-      text-shadow: 0 0 8px rgba(94, 200, 255, 0.4);
+      text-shadow: 0 0 8px rgba(111, 211, 255, 0.4);
     }
     .footer .links a { margin: 0 0.9rem; color: var(--text-muted); text-decoration: none; transition: color var(--ease); }
     .footer .links a::before { content: "["; color: var(--blue-dim); }
     .footer .links a::after { content: "]"; color: var(--blue-dim); }
-    .footer .links a:hover { color: var(--gold); }
+    .footer .links a:hover { color: var(--hot); }
   </style>
 </head>
 
 <body>
-  <!-- Picks the hero for this load, before anything else is parsed. Runs
-       synchronously so there's no flash of the wrong (or both) hero. -->
-  <script>document.body.classList.add(Math.random() < 0.5 ? 'variant-a' : 'variant-b');</script>
-
   <div id="navbar"></div>
   <script src="/global/navbar.js"></script>
 
-  <div id="about">
-    <!-- Hero A: two antiparallel line currents -->
-    <header class="hero hero-a">
-      <canvas id="fieldTrailsA" aria-hidden="true"></canvas>
-      <canvas id="fieldArrowsA" aria-label="Animated magnetic field of two antiparallel line currents: flowing streamlines and magnitude-colored field arrows circulating around each wire."></canvas>
-      <div class="hero-scrim"></div>
-      <div class="hud-frame">
-        <h1 class="hud-name">Hey, I'm elektroedde</h1>
-        <div class="hud-row"><span>ROLE:</span><span class="v">Electrical Engineering Student</span></div>
-        <div class="hud-row"><span>SPEC:</span><span class="v hud-spec">Electrodynamics // Photonics // Computational Physics</span></div>
-        <p class="hud-eq">∇ × <span class="g">E</span> = −∂<span class="g">B</span>/∂t &nbsp;·&nbsp; ∇ × <span class="g">B</span> = μ₀<span class="g">J</span> + μ₀ε₀∂<span class="g">E</span>/∂t</p>
-      </div>
-    </header>
-
-    <!-- Hero B: single electrostatic point charge, tracking the cursor -->
-    <header class="hero hero-b">
-      <canvas id="fieldArrowsB" aria-label="Animated electrostatic field of a single point charge that follows the cursor: magnitude-colored field arrows radiating outward."></canvas>
-      <div class="hero-scrim"></div>
-      <div class="hud-frame">
-        <h1 class="hud-name">Hey, I'm elektroedde</h1>
-        <div class="hud-row"><span>ROLE:</span><span class="v">Electrical Engineering Student</span></div>
-        <div class="hud-row"><span>SPEC:</span><span class="v hud-spec">Electrodynamics // Photonics // Computational Physics</span></div>
-        <p class="hud-eq">∇ · <span class="g">E</span> = <span class="g">ρ</span>/<span class="g">ε₀</span> &nbsp;·&nbsp; <span class="g">E</span> = <span class="g">q</span>/(4π<span class="g">ε₀r²</span>) <span class="g">r̂</span></p>
-      </div>
-    </header>
-  </div>
+  <!-- Hero -->
+  <header class="hero" id="about">
+    <canvas id="bhTrails" aria-hidden="true"></canvas>
+    <canvas id="bhCrisp" aria-label="Animated black hole with an orbiting accretion disk, event horizon, and lensed light arcs, set against a starfield."></canvas>
+    <div class="hud-frame">
+      <h1 class="hud-name">Hey, I'm elektroedde</h1>
+      <div class="hud-row"><span>ROLE:</span><span class="v">Electrical Engineering Student</span></div>
+      <div class="hud-row"><span>SPEC:</span><span class="v hud-spec">Electrodynamics // Photonics // Computational Physics</span></div>
+      <p class="hud-eq">Event horizon: <span class="g">r₊</span> = 2<span class="g">GM</span>/<span class="g">c²</span></p>
+    </div>
+  </header>
 
   <!-- Projects -->
   <section class="sheet">
@@ -490,277 +455,99 @@
   <div id="footer"></div>
   <script src="/global/footer.js"></script>
 
-  <!-- Hero A script: two antiparallel line currents. No-ops unless variant-a was chosen. -->
+  <!-- Black hole: orbiting accretion disk + event horizon + lensed arcs -->
   <script>
     (function () {
-      if (!document.body.classList.contains('variant-a')) return;
-
-      var trailCanvas = document.getElementById('fieldTrailsA');
-      var arrowCanvas = document.getElementById('fieldArrowsA');
-      if (!trailCanvas || !arrowCanvas || !trailCanvas.getContext) return;
+      var trailCanvas = document.getElementById('bhTrails');
+      var crispCanvas = document.getElementById('bhCrisp');
+      if (!trailCanvas || !crispCanvas || !trailCanvas.getContext) return;
       var tctx = trailCanvas.getContext('2d');
-      var actx = arrowCanvas.getContext('2d');
+      var cctx = crispCanvas.getContext('2d');
       var dpr = Math.min(window.devicePixelRatio || 1, 2);
-      var BG = '#03060d';
       var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      // Two infinite line currents, opposite direction: × into the page (top), • out of the page (bottom).
-      var SRC = [
-        { x: 0, y: 0.5, s: -1 },
-        { x: 0, y: -0.5, s: 1 }
-      ];
-
-      function field(x, y) {
-        var bx = 0, by = 0;
-        for (var i = 0; i < SRC.length; i++) {
-          var src = SRC[i];
-          var dx = x - src.x, dy = y - src.y;
-          var r2 = dx * dx + dy * dy;
-          if (r2 < 0.006) r2 = 0.006;
-          bx += src.s * (-dy) / r2;
-          by += src.s * (dx) / r2;
-        }
-        return { bx: bx, by: by };
-      }
-
-      // Small hand-picked green -> yellow -> orange -> red magnitude colormap.
-      var STOPS = [
-        [0.00, [32, 120, 90]],
-        [0.30, [130, 195, 60]],
-        [0.55, [250, 215, 50]],
-        [0.78, [250, 140, 40]],
-        [1.00, [225, 45, 35]]
-      ];
-      function magColor(t) {
-        t = t < 0 ? 0 : t > 1 ? 1 : t;
-        for (var i = 0; i < STOPS.length - 1; i++) {
-          var a = STOPS[i], b = STOPS[i + 1];
-          if (t >= a[0] && t <= b[0]) {
-            var f = (t - a[0]) / (b[0] - a[0]);
-            var r = a[1][0] + (b[1][0] - a[1][0]) * f;
-            var g = a[1][1] + (b[1][1] - a[1][1]) * f;
-            var bl = a[1][2] + (b[1][2] - a[1][2]) * f;
-            return 'rgb(' + (r | 0) + ',' + (g | 0) + ',' + (bl | 0) + ')';
-          }
-        }
-        var last = STOPS[STOPS.length - 1][1];
-        return 'rgb(' + last[0] + ',' + last[1] + ',' + last[2] + ')';
-      }
-
-      function toScreen(x, y, cx, cy, S) {
-        return { sx: cx + x * S, sy: cy - y * S };
-      }
-      function dist(x1, y1, x2, y2) { var dx = x1 - x2, dy = y1 - y2; return Math.sqrt(dx * dx + dy * dy); }
-
       function resize() {
-        [trailCanvas, arrowCanvas].forEach(function (c) {
+        [trailCanvas, crispCanvas].forEach(function (c) {
           var rect = c.getBoundingClientRect();
           c.width = Math.max(1, Math.round(rect.width * dpr));
           c.height = Math.max(1, Math.round(rect.height * dpr));
         });
-        tctx.fillStyle = BG;
+        tctx.fillStyle = '#000';
         tctx.fillRect(0, 0, trailCanvas.width, trailCanvas.height);
-      }
-      window.addEventListener('resize', resize);
-      resize();
-
-      // === Flowing streamline particles (fine background texture) ===
-      var particles = [];
-      function respawn(p) {
-        p.x = (Math.random() * 2 - 1) * 1.3;
-        p.y = (Math.random() * 2 - 1) * 1.05;
-        p.px = p.x; p.py = p.y;
-        p.age = 0;
-        p.maxAge = 60 + Math.random() * 120;
-      }
-      for (var i = 0; i < 260; i++) {
-        var p = {};
-        respawn(p);
-        p.age = Math.random() * p.maxAge;
-        particles.push(p);
+        buildStars();
       }
 
-      function stepParticle(p) {
-        var f = field(p.x, p.y);
-        var mag = Math.sqrt(f.bx * f.bx + f.by * f.by) || 1;
-        var speed = Math.min(0.9, 0.15 + mag * 0.05);
-        p.x += (f.bx / mag) * speed * (1 / 60);
-        p.y += (f.by / mag) * speed * (1 / 60);
+      // === Geometry: hole sits in the upper portion, panel sits below it ===
+      function geom(w, h) {
+        var cx = w / 2, cy = h * 0.36;
+        var minWH = Math.min(w, h);
+        var evR = minWH * 0.085;
+        return {
+          cx: cx, cy: cy, evR: evR,
+          diskInner: evR * 1.2,
+          diskOuter: evR * 3.4,
+          squash: 0.36
+        };
       }
 
-      function drawTrails() {
-        var w = trailCanvas.width, h = trailCanvas.height;
-        tctx.fillStyle = 'rgba(3, 6, 13, 0.10)';
-        tctx.fillRect(0, 0, w, h);
-        var cx = w / 2, cy = h * 0.5, S = Math.min(w, h) * 0.46;
-        tctx.strokeStyle = 'rgba(150, 200, 255, 0.5)';
-        tctx.lineWidth = Math.max(1, dpr);
-        for (var i = 0; i < particles.length; i++) {
-          var p = particles[i];
-          var s0 = toScreen(p.px, p.py, cx, cy, S);
-          stepParticle(p);
-          var s1 = toScreen(p.x, p.y, cx, cy, S);
-          tctx.beginPath();
-          tctx.moveTo(s0.sx, s0.sy);
-          tctx.lineTo(s1.sx, s1.sy);
-          tctx.stroke();
-          p.px = p.x; p.py = p.y;
-          p.age++;
-          if (p.age > p.maxAge || Math.abs(p.x) > 1.5 || Math.abs(p.y) > 1.2) respawn(p);
-        }
-      }
-
-      function drawStaticStreamlines() {
-        var w = trailCanvas.width, h = trailCanvas.height;
-        var cx = w / 2, cy = h * 0.5, S = Math.min(w, h) * 0.46;
-        tctx.strokeStyle = 'rgba(150, 200, 255, 0.45)';
-        tctx.lineWidth = Math.max(1, dpr);
-        for (var i = 0; i < 46; i++) {
-          var x = (Math.random() * 2 - 1) * 1.3, y = (Math.random() * 2 - 1) * 1.05;
-          var s = toScreen(x, y, cx, cy, S);
-          tctx.beginPath();
-          tctx.moveTo(s.sx, s.sy);
-          for (var step = 0; step < 70; step++) {
-            var f = field(x, y);
-            var mag = Math.sqrt(f.bx * f.bx + f.by * f.by) || 1;
-            var speed = Math.min(0.9, 0.15 + mag * 0.05);
-            x += (f.bx / mag) * speed * 0.05;
-            y += (f.by / mag) * speed * 0.05;
-            if (Math.abs(x) > 1.5 || Math.abs(y) > 1.2) break;
-            s = toScreen(x, y, cx, cy, S);
-            tctx.lineTo(s.sx, s.sy);
-          }
-          tctx.stroke();
-        }
-      }
-
-      // === Magnitude-colored arrow grid + source markers ===
-      function drawArrow(x, y, angle, len, color) {
-        var hx = Math.cos(angle), hy = Math.sin(angle);
-        var x0 = x - hx * len * 0.5, y0 = y - hy * len * 0.5;
-        var x1 = x + hx * len * 0.5, y1 = y + hy * len * 0.5;
-        actx.strokeStyle = color; actx.fillStyle = color;
-        actx.lineWidth = Math.max(1.2, len * 0.09);
-        actx.lineCap = 'round';
-        actx.beginPath(); actx.moveTo(x0, y0); actx.lineTo(x1, y1); actx.stroke();
-        var headLen = len * 0.42;
-        var a1 = angle + Math.PI * 0.82, a2 = angle - Math.PI * 0.82;
-        actx.beginPath();
-        actx.moveTo(x1, y1);
-        actx.lineTo(x1 + Math.cos(a1) * headLen, y1 + Math.sin(a1) * headLen);
-        actx.lineTo(x1 + Math.cos(a2) * headLen, y1 + Math.sin(a2) * headLen);
-        actx.closePath();
-        actx.fill();
-      }
-
-      function drawSourceMarkers(cx, cy, S) {
-        SRC.forEach(function (src) {
-          var p = toScreen(src.x, src.y, cx, cy, S);
-          var r = Math.max(14, S * 0.075);
-          actx.beginPath();
-          actx.arc(p.sx, p.sy, r, 0, Math.PI * 2);
-          actx.fillStyle = BG;
-          actx.fill();
-          actx.lineWidth = Math.max(1.5, r * 0.09);
-          actx.strokeStyle = '#eaf3ff';
-          actx.stroke();
-          if (src.s < 0) {
-            var k = r * 0.42;
-            actx.beginPath();
-            actx.moveTo(p.sx - k, p.sy - k); actx.lineTo(p.sx + k, p.sy + k);
-            actx.moveTo(p.sx + k, p.sy - k); actx.lineTo(p.sx - k, p.sy + k);
-            actx.lineWidth = Math.max(1.2, r * 0.16);
-            actx.stroke();
-          } else {
-            actx.beginPath();
-            actx.arc(p.sx, p.sy, r * 0.32, 0, Math.PI * 2);
-            actx.fillStyle = '#eaf3ff';
-            actx.fill();
-          }
-        });
-      }
-
-      function drawArrows() {
-        var w = arrowCanvas.width, h = arrowCanvas.height;
-        actx.clearRect(0, 0, w, h);
-        var cx = w / 2, cy = h * 0.5, S = Math.min(w, h) * 0.46;
-        var cols = 15, rows = 9;
-        for (var iy = 0; iy < rows; iy++) {
-          for (var ix = 0; ix < cols; ix++) {
-            var gx = (ix + 0.5) / cols * 2.6 - 1.3;
-            var gy = (iy + 0.5) / rows * 2.1 - 1.05;
-            if (Math.min(dist(gx, gy, SRC[0].x, SRC[0].y), dist(gx, gy, SRC[1].x, SRC[1].y)) < 0.16) continue;
-            var f = field(gx, gy);
-            var mag = Math.sqrt(f.bx * f.bx + f.by * f.by);
-            var angle = Math.atan2(-f.by, f.bx);
-            var color = magColor(mag / (mag + 2.4));
-            var center = toScreen(gx, gy, cx, cy, S);
-            var len = (10 + Math.min(mag, 6) * 2.2) * dpr;
-            drawArrow(center.sx, center.sy, angle, len, color);
-          }
-        }
-        drawSourceMarkers(cx, cy, S);
-      }
-
-      if (reduceMotion) {
-        tctx.fillStyle = BG;
-        tctx.fillRect(0, 0, trailCanvas.width, trailCanvas.height);
-        drawStaticStreamlines();
-        drawArrows();
-      } else {
-        for (var warm = 0; warm < 50; warm++) drawTrails();
-        (function loop() {
-          drawTrails();
-          drawArrows();
-          requestAnimationFrame(loop);
-        })();
-      }
-    })();
-  </script>
-
-  <!-- Hero B script: electrostatic point charge tracking the cursor. No-ops unless variant-b was chosen. -->
-  <script>
-    (function () {
-      if (!document.body.classList.contains('variant-b')) return;
-
-      var arrowCanvas = document.getElementById('fieldArrowsB');
-      if (!arrowCanvas || !arrowCanvas.getContext) return;
-      var actx = arrowCanvas.getContext('2d');
-      var dpr = Math.min(window.devicePixelRatio || 1, 2);
-      var BG = '#03060d';
-
-      // The charge's position in field space, derived from the cursor each
-      // frame. Defaults to the origin (hero center) until the first mousemove.
-      var mouseScreen = { x: null, y: null };
+      // === Cursor as a second, local lensing mass — bends nearby starlight ===
+      // Stars within R of the pointer are displaced radially outward from it;
+      // the push grows the closer a star's true position is to the cursor and
+      // eases to exactly zero at r=R, so there's no visible boundary seam.
+      var mouse = { x: -99999, y: -99999 };
       window.addEventListener('mousemove', function (e) {
-        var rect = arrowCanvas.getBoundingClientRect();
-        mouseScreen.x = (e.clientX - rect.left) * dpr;
-        mouseScreen.y = (e.clientY - rect.top) * dpr;
-        render();
+        var rect = crispCanvas.getBoundingClientRect();
+        mouse.x = (e.clientX - rect.left) * dpr;
+        mouse.y = (e.clientY - rect.top) * dpr;
       });
-      function currentSource(cx, cy, S) {
-        if (mouseScreen.x === null) return { x: 0, y: 0 };
-        return { x: (mouseScreen.x - cx) / S, y: (cy - mouseScreen.y) / S };
+      function lensDisplace(sx, sy, w, h) {
+        var R = Math.min(w, h) * 0.22;
+        var dx = sx - mouse.x, dy = sy - mouse.y;
+        var r = Math.sqrt(dx * dx + dy * dy);
+        if (r >= R || r < 1e-6) return { x: sx, y: sy };
+        var maxPush = R * 0.8;
+        var ease = (R - r) / R;
+        var newR = r + ease * ease * maxPush;
+        var ux = dx / r, uy = dy / r;
+        return { x: mouse.x + ux * newR, y: mouse.y + uy * newR };
       }
 
-      // Coulomb's law for a single positive point charge: E ∝ r̂/r².
-      function field(x, y, source) {
-        var dx = x - source.x, dy = y - source.y;
-        var r2 = dx * dx + dy * dy;
-        if (r2 < 0.003) r2 = 0.003;
-        var r3 = r2 * Math.sqrt(r2);
-        return { ex: dx / r3, ey: dy / r3 };
+      // === Starfield (skips stars that would sit inside the disk) ===
+      var stars = [];
+      function buildStars() {
+        stars = [];
+        var w = crispCanvas.width, h = crispCanvas.height;
+        for (var i = 0; i < 170; i++) {
+          stars.push({
+            x: Math.random() * w, y: Math.random() * h,
+            r: (Math.random() * 1.3 + 0.35) * dpr,
+            base: 0.25 + Math.random() * 0.65,
+            speed: 0.4 + Math.random() * 1.4,
+            phase: Math.random() * Math.PI * 2
+          });
+        }
       }
 
-      // Small hand-picked green -> yellow -> orange -> red magnitude colormap.
+      // === Accretion disk particles (fixed circular/elliptical orbits) ===
+      var particles = [];
+      (function initParticles() {
+        for (var i = 0; i < 170; i++) {
+          var t = Math.random();
+          particles.push({
+            angle: Math.random() * Math.PI * 2,
+            radiusT: t,
+            speed: 0.9 - t * 0.65
+          });
+        }
+      })();
+
       var STOPS = [
-        [0.00, [32, 120, 90]],
-        [0.30, [130, 195, 60]],
-        [0.55, [250, 215, 50]],
-        [0.78, [250, 140, 40]],
-        [1.00, [225, 45, 35]]
+        [0.00, [255, 244, 214]],
+        [0.35, [255, 179, 71]],
+        [0.70, [255, 110, 40]],
+        [1.00, [150, 40, 20]]
       ];
-      function magColor(t) {
+      function diskColor(t) {
         t = t < 0 ? 0 : t > 1 ? 1 : t;
         for (var i = 0; i < STOPS.length - 1; i++) {
           var a = STOPS[i], b = STOPS[i + 1];
@@ -776,84 +563,89 @@
         return 'rgb(' + last[0] + ',' + last[1] + ',' + last[2] + ')';
       }
 
-      function toScreen(x, y, cx, cy, S) {
-        return { sx: cx + x * S, sy: cy - y * S };
-      }
-      function dist(x1, y1, x2, y2) { var dx = x1 - x2, dy = y1 - y2; return Math.sqrt(dx * dx + dy * dy); }
-
-      function resize() {
-        var rect = arrowCanvas.getBoundingClientRect();
-        arrowCanvas.width = Math.max(1, Math.round(rect.width * dpr));
-        arrowCanvas.height = Math.max(1, Math.round(rect.height * dpr));
-        render();
-      }
-      window.addEventListener('resize', resize);
-
-      // === Magnitude-colored arrow grid + the charge marker ===
-      function drawArrow(x, y, angle, len, color) {
-        var hx = Math.cos(angle), hy = Math.sin(angle);
-        var x0 = x - hx * len * 0.5, y0 = y - hy * len * 0.5;
-        var x1 = x + hx * len * 0.5, y1 = y + hy * len * 0.5;
-        actx.strokeStyle = color; actx.fillStyle = color;
-        actx.lineWidth = Math.max(1.2, len * 0.09);
-        actx.lineCap = 'round';
-        actx.beginPath(); actx.moveTo(x0, y0); actx.lineTo(x1, y1); actx.stroke();
-        var headLen = len * 0.42;
-        var a1 = angle + Math.PI * 0.82, a2 = angle - Math.PI * 0.82;
-        actx.beginPath();
-        actx.moveTo(x1, y1);
-        actx.lineTo(x1 + Math.cos(a1) * headLen, y1 + Math.sin(a1) * headLen);
-        actx.lineTo(x1 + Math.cos(a2) * headLen, y1 + Math.sin(a2) * headLen);
-        actx.closePath();
-        actx.fill();
-      }
-
-      function drawSourceMarker(cx, cy, S, source) {
-        var p = toScreen(source.x, source.y, cx, cy, S);
-        var r = Math.max(14, S * 0.075);
-        actx.beginPath();
-        actx.arc(p.sx, p.sy, r, 0, Math.PI * 2);
-        actx.fillStyle = BG;
-        actx.fill();
-        actx.lineWidth = Math.max(1.5, r * 0.09);
-        actx.strokeStyle = '#eaf3ff';
-        actx.stroke();
-        var k = r * 0.42;
-        actx.beginPath();
-        actx.moveTo(p.sx - k, p.sy); actx.lineTo(p.sx + k, p.sy);
-        actx.moveTo(p.sx, p.sy - k); actx.lineTo(p.sx, p.sy + k);
-        actx.lineWidth = Math.max(1.2, r * 0.16);
-        actx.stroke();
-      }
-
-      function drawArrows() {
-        var w = arrowCanvas.width, h = arrowCanvas.height;
-        actx.clearRect(0, 0, w, h);
-        var cx = w / 2, cy = h * 0.5, S = Math.min(w, h) * 0.46;
-        var source = currentSource(cx, cy, S);
-        var cols = 15, rows = 9;
-        for (var iy = 0; iy < rows; iy++) {
-          for (var ix = 0; ix < cols; ix++) {
-            var gx = (ix + 0.5) / cols * 2.6 - 1.3;
-            var gy = (iy + 0.5) / rows * 2.1 - 1.05;
-            if (dist(gx, gy, source.x, source.y) < 0.16) continue;
-            var f = field(gx, gy, source);
-            var mag = Math.sqrt(f.ex * f.ex + f.ey * f.ey);
-            var angle = Math.atan2(-f.ey, f.ex);
-            var color = magColor(mag / (mag + 2.4));
-            var center = toScreen(gx, gy, cx, cy, S);
-            // Bigger right next to the charge, tapering down with distance.
-            var len = (7 + Math.min(mag, 10) * 3.0) * dpr;
-            drawArrow(center.sx, center.sy, angle, len, color);
-          }
+      function drawTrails() {
+        var w = trailCanvas.width, h = trailCanvas.height;
+        tctx.fillStyle = 'rgba(0, 0, 0, 0.14)';
+        tctx.fillRect(0, 0, w, h);
+        var g = geom(w, h);
+        for (var i = 0; i < particles.length; i++) {
+          var p = particles[i];
+          p.angle += p.speed * (1 / 60) * 1.6;
+          var radius = g.diskInner + p.radiusT * (g.diskOuter - g.diskInner);
+          var x = g.cx + Math.cos(p.angle) * radius;
+          var y = g.cy + Math.sin(p.angle) * radius * g.squash;
+          var sz = Math.max(1, (1.6 - p.radiusT * 0.9)) * dpr;
+          tctx.beginPath();
+          tctx.fillStyle = diskColor(p.radiusT);
+          tctx.arc(x, y, sz, 0, Math.PI * 2);
+          tctx.fill();
         }
-        drawSourceMarker(cx, cy, S, source);
       }
 
-      function render() { drawArrows(); }
+      function drawCrisp(t) {
+        var w = crispCanvas.width, h = crispCanvas.height;
+        cctx.clearRect(0, 0, w, h);
+        var g = geom(w, h);
 
+        for (var i = 0; i < stars.length; i++) {
+          var s = stars[i];
+          var dx = s.x - g.cx, dy = (s.y - g.cy) / g.squash;
+          if (Math.sqrt(dx * dx + dy * dy) < g.diskOuter * 1.05) continue;
+          var tw = reduceMotion ? s.base : s.base * (0.6 + 0.4 * Math.sin(t * s.speed + s.phase));
+          var pos = lensDisplace(s.x, s.y, w, h);
+          cctx.beginPath();
+          cctx.fillStyle = 'rgba(255,255,255,' + tw.toFixed(2) + ')';
+          cctx.arc(pos.x, pos.y, s.r, 0, Math.PI * 2);
+          cctx.fill();
+        }
+
+        var glow = cctx.createRadialGradient(g.cx, g.cy, g.evR, g.cx, g.cy, g.diskOuter * 1.3);
+        glow.addColorStop(0, 'rgba(255, 190, 120, 0.22)');
+        glow.addColorStop(1, 'rgba(255, 190, 120, 0)');
+        cctx.fillStyle = glow;
+        cctx.beginPath();
+        cctx.ellipse(g.cx, g.cy, g.diskOuter * 1.3, g.diskOuter * 1.3 * g.squash * 1.4, 0, 0, Math.PI * 2);
+        cctx.fill();
+
+        cctx.beginPath();
+        cctx.fillStyle = '#000';
+        cctx.arc(g.cx, g.cy, g.evR, 0, Math.PI * 2);
+        cctx.fill();
+
+        cctx.beginPath();
+        cctx.strokeStyle = 'rgba(255, 230, 180, 0.9)';
+        cctx.lineWidth = Math.max(1.5, g.evR * 0.06);
+        cctx.arc(g.cx, g.cy, g.evR * 1.04, 0, Math.PI * 2);
+        cctx.stroke();
+
+        // Lensed slivers: light from the far side of the disk bending over/under the hole.
+        cctx.lineWidth = Math.max(1.5, g.evR * 0.05);
+        cctx.strokeStyle = 'rgba(255, 214, 150, 0.65)';
+        cctx.beginPath();
+        cctx.ellipse(g.cx, g.cy, g.evR * 1.5, g.evR * 0.5, 0, Math.PI * 1.05, Math.PI * 1.95);
+        cctx.stroke();
+        cctx.strokeStyle = 'rgba(255, 214, 150, 0.4)';
+        cctx.beginPath();
+        cctx.ellipse(g.cx, g.cy, g.evR * 1.35, g.evR * 0.4, 0, Math.PI * 0.05, Math.PI * 0.95);
+        cctx.stroke();
+      }
+
+      window.addEventListener('resize', resize);
       resize();
-      render();
+
+      if (reduceMotion) {
+        for (var w1 = 0; w1 < 40; w1++) drawTrails();
+        drawCrisp(0);
+      } else {
+        for (var w2 = 0; w2 < 60; w2++) drawTrails();
+        var start = null;
+        (function loop(ts) {
+          if (start === null) start = ts;
+          drawTrails();
+          drawCrisp((ts - start) / 1000);
+          requestAnimationFrame(loop);
+        })(performance.now());
+      }
     })();
   </script>
 </body>

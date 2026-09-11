@@ -84,7 +84,7 @@
       text-shadow: none;
     }
 
-    /* === Hero: two variants share identical sizing; only the canvas + copy differ === */
+    /* === Hero: electrostatic point charge — the source follows the cursor === */
     header.hero {
       position: relative; overflow: hidden;
       display: flex; align-items: center; justify-content: center;
@@ -93,17 +93,10 @@
     }
     @media (max-width: 480px) { header.hero { min-height: 760px; padding: 2.5rem 1rem 2rem; } }
 
-    /* One random variant is picked before first paint (see the inline script
-       right after <body>), which adds "variant-a" or "variant-b" to <body>.
-       Both heroes stay in the DOM; only the chosen one is shown, and only its
-       script actually runs (each script early-returns otherwise). */
-    header.hero-a, header.hero-b { display: none; }
-    body.variant-a header.hero-a { display: flex; }
-    body.variant-b header.hero-b { display: flex; }
-
-    /* Canvas mask: fades the field visualization gently at the edges.
-       Shared by both variants' canvases. */
-    #fieldTrailsA, #fieldArrowsA, #fieldArrowsB {
+    /* The charge sits wherever the cursor is (field-space origin by default,
+       before the first mousemove); the panel stays anchored at the hero's
+       center regardless, and simply sits above the canvas in z-order. */
+    #fieldArrows {
       position: absolute; inset: 0; display: block; width: 100%; height: 100%;
       -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 0%, black 55%, transparent 90%);
       mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 0%, black 55%, transparent 90%);
@@ -222,39 +215,20 @@
 </head>
 
 <body>
-  <!-- Picks the hero for this load, before anything else is parsed. Runs
-       synchronously so there's no flash of the wrong (or both) hero. -->
-  <script>document.body.classList.add(Math.random() < 0.5 ? 'variant-a' : 'variant-b');</script>
-
   <div id="navbar"></div>
   <script src="/global/navbar.js"></script>
 
-  <div id="about">
-    <!-- Hero A: two antiparallel line currents -->
-    <header class="hero hero-a">
-      <canvas id="fieldTrailsA" aria-hidden="true"></canvas>
-      <canvas id="fieldArrowsA" aria-label="Animated magnetic field of two antiparallel line currents: flowing streamlines and magnitude-colored field arrows circulating around each wire."></canvas>
-      <div class="hero-scrim"></div>
-      <div class="hud-frame">
-        <h1 class="hud-name">Hey, I'm elektroedde</h1>
-        <div class="hud-row"><span>ROLE:</span><span class="v">Electrical Engineering Student</span></div>
-        <div class="hud-row"><span>SPEC:</span><span class="v hud-spec">Electrodynamics // Photonics // Computational Physics</span></div>
-        <p class="hud-eq">∇ × <span class="g">E</span> = −∂<span class="g">B</span>/∂t &nbsp;·&nbsp; ∇ × <span class="g">B</span> = μ₀<span class="g">J</span> + μ₀ε₀∂<span class="g">E</span>/∂t</p>
-      </div>
-    </header>
-
-    <!-- Hero B: single electrostatic point charge, tracking the cursor -->
-    <header class="hero hero-b">
-      <canvas id="fieldArrowsB" aria-label="Animated electrostatic field of a single point charge that follows the cursor: magnitude-colored field arrows radiating outward."></canvas>
-      <div class="hero-scrim"></div>
-      <div class="hud-frame">
-        <h1 class="hud-name">Hey, I'm elektroedde</h1>
-        <div class="hud-row"><span>ROLE:</span><span class="v">Electrical Engineering Student</span></div>
-        <div class="hud-row"><span>SPEC:</span><span class="v hud-spec">Electrodynamics // Photonics // Computational Physics</span></div>
-        <p class="hud-eq">∇ · <span class="g">E</span> = <span class="g">ρ</span>/<span class="g">ε₀</span> &nbsp;·&nbsp; <span class="g">E</span> = <span class="g">q</span>/(4π<span class="g">ε₀r²</span>) <span class="g">r̂</span></p>
-      </div>
-    </header>
-  </div>
+  <!-- Hero -->
+  <header class="hero" id="about">
+    <canvas id="fieldArrows" aria-label="Animated electrostatic field of a single point charge that follows the cursor: magnitude-colored field arrows radiating outward."></canvas>
+    <div class="hero-scrim"></div>
+    <div class="hud-frame">
+      <h1 class="hud-name">Hey, I'm elektroedde</h1>
+      <div class="hud-row"><span>ROLE:</span><span class="v">Electrical Engineering Student</span></div>
+      <div class="hud-row"><span>SPEC:</span><span class="v hud-spec">Electrodynamics // Photonics // Computational Physics</span></div>
+      <p class="hud-eq">∇ · <span class="g">E</span> = <span class="g">ρ</span>/<span class="g">ε₀</span> &nbsp;·&nbsp; <span class="g">E</span> = <span class="g">q</span>/(4π<span class="g">ε₀r²</span>) <span class="g">r̂</span></p>
+    </div>
+  </header>
 
   <!-- Projects -->
   <section class="sheet">
@@ -490,240 +464,10 @@
   <div id="footer"></div>
   <script src="/global/footer.js"></script>
 
-  <!-- Hero A script: two antiparallel line currents. No-ops unless variant-a was chosen. -->
+  <!-- Electrostatic point charge, tracking the cursor: magnitude-colored field arrows -->
   <script>
     (function () {
-      if (!document.body.classList.contains('variant-a')) return;
-
-      var trailCanvas = document.getElementById('fieldTrailsA');
-      var arrowCanvas = document.getElementById('fieldArrowsA');
-      if (!trailCanvas || !arrowCanvas || !trailCanvas.getContext) return;
-      var tctx = trailCanvas.getContext('2d');
-      var actx = arrowCanvas.getContext('2d');
-      var dpr = Math.min(window.devicePixelRatio || 1, 2);
-      var BG = '#03060d';
-      var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-      // Two infinite line currents, opposite direction: × into the page (top), • out of the page (bottom).
-      var SRC = [
-        { x: 0, y: 0.5, s: -1 },
-        { x: 0, y: -0.5, s: 1 }
-      ];
-
-      function field(x, y) {
-        var bx = 0, by = 0;
-        for (var i = 0; i < SRC.length; i++) {
-          var src = SRC[i];
-          var dx = x - src.x, dy = y - src.y;
-          var r2 = dx * dx + dy * dy;
-          if (r2 < 0.006) r2 = 0.006;
-          bx += src.s * (-dy) / r2;
-          by += src.s * (dx) / r2;
-        }
-        return { bx: bx, by: by };
-      }
-
-      // Small hand-picked green -> yellow -> orange -> red magnitude colormap.
-      var STOPS = [
-        [0.00, [32, 120, 90]],
-        [0.30, [130, 195, 60]],
-        [0.55, [250, 215, 50]],
-        [0.78, [250, 140, 40]],
-        [1.00, [225, 45, 35]]
-      ];
-      function magColor(t) {
-        t = t < 0 ? 0 : t > 1 ? 1 : t;
-        for (var i = 0; i < STOPS.length - 1; i++) {
-          var a = STOPS[i], b = STOPS[i + 1];
-          if (t >= a[0] && t <= b[0]) {
-            var f = (t - a[0]) / (b[0] - a[0]);
-            var r = a[1][0] + (b[1][0] - a[1][0]) * f;
-            var g = a[1][1] + (b[1][1] - a[1][1]) * f;
-            var bl = a[1][2] + (b[1][2] - a[1][2]) * f;
-            return 'rgb(' + (r | 0) + ',' + (g | 0) + ',' + (bl | 0) + ')';
-          }
-        }
-        var last = STOPS[STOPS.length - 1][1];
-        return 'rgb(' + last[0] + ',' + last[1] + ',' + last[2] + ')';
-      }
-
-      function toScreen(x, y, cx, cy, S) {
-        return { sx: cx + x * S, sy: cy - y * S };
-      }
-      function dist(x1, y1, x2, y2) { var dx = x1 - x2, dy = y1 - y2; return Math.sqrt(dx * dx + dy * dy); }
-
-      function resize() {
-        [trailCanvas, arrowCanvas].forEach(function (c) {
-          var rect = c.getBoundingClientRect();
-          c.width = Math.max(1, Math.round(rect.width * dpr));
-          c.height = Math.max(1, Math.round(rect.height * dpr));
-        });
-        tctx.fillStyle = BG;
-        tctx.fillRect(0, 0, trailCanvas.width, trailCanvas.height);
-      }
-      window.addEventListener('resize', resize);
-      resize();
-
-      // === Flowing streamline particles (fine background texture) ===
-      var particles = [];
-      function respawn(p) {
-        p.x = (Math.random() * 2 - 1) * 1.3;
-        p.y = (Math.random() * 2 - 1) * 1.05;
-        p.px = p.x; p.py = p.y;
-        p.age = 0;
-        p.maxAge = 60 + Math.random() * 120;
-      }
-      for (var i = 0; i < 260; i++) {
-        var p = {};
-        respawn(p);
-        p.age = Math.random() * p.maxAge;
-        particles.push(p);
-      }
-
-      function stepParticle(p) {
-        var f = field(p.x, p.y);
-        var mag = Math.sqrt(f.bx * f.bx + f.by * f.by) || 1;
-        var speed = Math.min(0.9, 0.15 + mag * 0.05);
-        p.x += (f.bx / mag) * speed * (1 / 60);
-        p.y += (f.by / mag) * speed * (1 / 60);
-      }
-
-      function drawTrails() {
-        var w = trailCanvas.width, h = trailCanvas.height;
-        tctx.fillStyle = 'rgba(3, 6, 13, 0.10)';
-        tctx.fillRect(0, 0, w, h);
-        var cx = w / 2, cy = h * 0.5, S = Math.min(w, h) * 0.46;
-        tctx.strokeStyle = 'rgba(150, 200, 255, 0.5)';
-        tctx.lineWidth = Math.max(1, dpr);
-        for (var i = 0; i < particles.length; i++) {
-          var p = particles[i];
-          var s0 = toScreen(p.px, p.py, cx, cy, S);
-          stepParticle(p);
-          var s1 = toScreen(p.x, p.y, cx, cy, S);
-          tctx.beginPath();
-          tctx.moveTo(s0.sx, s0.sy);
-          tctx.lineTo(s1.sx, s1.sy);
-          tctx.stroke();
-          p.px = p.x; p.py = p.y;
-          p.age++;
-          if (p.age > p.maxAge || Math.abs(p.x) > 1.5 || Math.abs(p.y) > 1.2) respawn(p);
-        }
-      }
-
-      function drawStaticStreamlines() {
-        var w = trailCanvas.width, h = trailCanvas.height;
-        var cx = w / 2, cy = h * 0.5, S = Math.min(w, h) * 0.46;
-        tctx.strokeStyle = 'rgba(150, 200, 255, 0.45)';
-        tctx.lineWidth = Math.max(1, dpr);
-        for (var i = 0; i < 46; i++) {
-          var x = (Math.random() * 2 - 1) * 1.3, y = (Math.random() * 2 - 1) * 1.05;
-          var s = toScreen(x, y, cx, cy, S);
-          tctx.beginPath();
-          tctx.moveTo(s.sx, s.sy);
-          for (var step = 0; step < 70; step++) {
-            var f = field(x, y);
-            var mag = Math.sqrt(f.bx * f.bx + f.by * f.by) || 1;
-            var speed = Math.min(0.9, 0.15 + mag * 0.05);
-            x += (f.bx / mag) * speed * 0.05;
-            y += (f.by / mag) * speed * 0.05;
-            if (Math.abs(x) > 1.5 || Math.abs(y) > 1.2) break;
-            s = toScreen(x, y, cx, cy, S);
-            tctx.lineTo(s.sx, s.sy);
-          }
-          tctx.stroke();
-        }
-      }
-
-      // === Magnitude-colored arrow grid + source markers ===
-      function drawArrow(x, y, angle, len, color) {
-        var hx = Math.cos(angle), hy = Math.sin(angle);
-        var x0 = x - hx * len * 0.5, y0 = y - hy * len * 0.5;
-        var x1 = x + hx * len * 0.5, y1 = y + hy * len * 0.5;
-        actx.strokeStyle = color; actx.fillStyle = color;
-        actx.lineWidth = Math.max(1.2, len * 0.09);
-        actx.lineCap = 'round';
-        actx.beginPath(); actx.moveTo(x0, y0); actx.lineTo(x1, y1); actx.stroke();
-        var headLen = len * 0.42;
-        var a1 = angle + Math.PI * 0.82, a2 = angle - Math.PI * 0.82;
-        actx.beginPath();
-        actx.moveTo(x1, y1);
-        actx.lineTo(x1 + Math.cos(a1) * headLen, y1 + Math.sin(a1) * headLen);
-        actx.lineTo(x1 + Math.cos(a2) * headLen, y1 + Math.sin(a2) * headLen);
-        actx.closePath();
-        actx.fill();
-      }
-
-      function drawSourceMarkers(cx, cy, S) {
-        SRC.forEach(function (src) {
-          var p = toScreen(src.x, src.y, cx, cy, S);
-          var r = Math.max(14, S * 0.075);
-          actx.beginPath();
-          actx.arc(p.sx, p.sy, r, 0, Math.PI * 2);
-          actx.fillStyle = BG;
-          actx.fill();
-          actx.lineWidth = Math.max(1.5, r * 0.09);
-          actx.strokeStyle = '#eaf3ff';
-          actx.stroke();
-          if (src.s < 0) {
-            var k = r * 0.42;
-            actx.beginPath();
-            actx.moveTo(p.sx - k, p.sy - k); actx.lineTo(p.sx + k, p.sy + k);
-            actx.moveTo(p.sx + k, p.sy - k); actx.lineTo(p.sx - k, p.sy + k);
-            actx.lineWidth = Math.max(1.2, r * 0.16);
-            actx.stroke();
-          } else {
-            actx.beginPath();
-            actx.arc(p.sx, p.sy, r * 0.32, 0, Math.PI * 2);
-            actx.fillStyle = '#eaf3ff';
-            actx.fill();
-          }
-        });
-      }
-
-      function drawArrows() {
-        var w = arrowCanvas.width, h = arrowCanvas.height;
-        actx.clearRect(0, 0, w, h);
-        var cx = w / 2, cy = h * 0.5, S = Math.min(w, h) * 0.46;
-        var cols = 15, rows = 9;
-        for (var iy = 0; iy < rows; iy++) {
-          for (var ix = 0; ix < cols; ix++) {
-            var gx = (ix + 0.5) / cols * 2.6 - 1.3;
-            var gy = (iy + 0.5) / rows * 2.1 - 1.05;
-            if (Math.min(dist(gx, gy, SRC[0].x, SRC[0].y), dist(gx, gy, SRC[1].x, SRC[1].y)) < 0.16) continue;
-            var f = field(gx, gy);
-            var mag = Math.sqrt(f.bx * f.bx + f.by * f.by);
-            var angle = Math.atan2(-f.by, f.bx);
-            var color = magColor(mag / (mag + 2.4));
-            var center = toScreen(gx, gy, cx, cy, S);
-            var len = (10 + Math.min(mag, 6) * 2.2) * dpr;
-            drawArrow(center.sx, center.sy, angle, len, color);
-          }
-        }
-        drawSourceMarkers(cx, cy, S);
-      }
-
-      if (reduceMotion) {
-        tctx.fillStyle = BG;
-        tctx.fillRect(0, 0, trailCanvas.width, trailCanvas.height);
-        drawStaticStreamlines();
-        drawArrows();
-      } else {
-        for (var warm = 0; warm < 50; warm++) drawTrails();
-        (function loop() {
-          drawTrails();
-          drawArrows();
-          requestAnimationFrame(loop);
-        })();
-      }
-    })();
-  </script>
-
-  <!-- Hero B script: electrostatic point charge tracking the cursor. No-ops unless variant-b was chosen. -->
-  <script>
-    (function () {
-      if (!document.body.classList.contains('variant-b')) return;
-
-      var arrowCanvas = document.getElementById('fieldArrowsB');
+      var arrowCanvas = document.getElementById('fieldArrows');
       if (!arrowCanvas || !arrowCanvas.getContext) return;
       var actx = arrowCanvas.getContext('2d');
       var dpr = Math.min(window.devicePixelRatio || 1, 2);

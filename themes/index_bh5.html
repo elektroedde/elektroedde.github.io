@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>elektroedde</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+    crossorigin="anonymous"></script>
+
+  <style>
+    :root {
+      --bg: #0a1c2e;
+      --panel: rgba(14, 32, 52, 0.92);
+      --line: #5fb3e0;
+      --line-dim: rgba(95, 179, 224, 0.3);
+      --accent: #fdd835;
+      --text: #e8f2fb;
+      --text-muted: rgba(232, 242, 251, 0.55);
+      --ease: 0.2s ease;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'IBM Plex Mono', monospace;
+    }
+
+    a { color: var(--line); }
+
+    /* === Navbar === */
+    #navbar { position: sticky; top: 0; z-index: 1000; }
+    #navbar nav.navbar {
+      background: rgba(10, 28, 46, 0.9) !important;
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line-dim);
+    }
+    #navbar .navbar-brand {
+      color: var(--text) !important;
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    #navbar .navbar-brand::before { content: "⟦ "; color: var(--accent); }
+    #navbar .navbar-brand::after { content: " ⟧"; color: var(--accent); }
+    #navbar .nav-link {
+      color: var(--text-muted) !important;
+      text-transform: uppercase;
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      transition: color var(--ease);
+    }
+    #navbar .nav-link:hover { color: var(--accent) !important; }
+    #navbar .navbar-toggler { border-color: var(--line-dim); }
+
+    /* === Layout === */
+    .sheet { max-width: 1000px; margin: 0 auto; padding: 3rem 1rem; position: relative; }
+
+    h2.hud-heading {
+      display: flex; align-items: center; gap: 0.9rem;
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.05em;
+      font-size: 1.4rem;
+      border-bottom: 1px solid var(--line-dim);
+      padding-bottom: 0.6rem;
+      margin-bottom: 1.75rem;
+    }
+    h2.hud-heading .tag {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      background: var(--line);
+      color: var(--bg);
+      padding: 0.15rem 0.5rem;
+      border-radius: 2px;
+    }
+
+    /* === Hero: black hole, blueprint schematic === */
+    header.hero {
+      position: relative; overflow: hidden;
+      display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+      padding: 2rem 1rem 3rem; text-align: center;
+      min-height: 820px;
+      background-color: var(--bg);
+      background-image:
+        repeating-linear-gradient(0deg, var(--line-dim) 0 1px, transparent 1px 32px),
+        repeating-linear-gradient(90deg, var(--line-dim) 0 1px, transparent 1px 32px);
+      opacity: 1;
+    }
+    header.hero { background-blend-mode: normal; }
+    @media (max-width: 480px) { header.hero { min-height: 680px; padding: 1.5rem 1rem 2.5rem; } }
+
+    #bhScope {
+      position: absolute; inset: 0; display: block; width: 100%; height: 100%;
+    }
+
+    .hud-frame {
+      position: relative; z-index: 2; max-width: 640px;
+      background: var(--panel);
+      border: 1px solid var(--line-dim);
+      padding: 1.75rem 2rem;
+    }
+    .hud-frame::before, .hud-frame::after {
+      content: ""; position: absolute; width: 16px; height: 16px; pointer-events: none;
+    }
+    .hud-frame::before { top: -1px; left: -1px; border-top: 2px solid var(--accent); border-left: 2px solid var(--accent); }
+    .hud-frame::after { bottom: -1px; right: -1px; border-bottom: 2px solid var(--accent); border-right: 2px solid var(--accent); }
+    @media (max-width: 480px) { .hud-frame { padding: 1.25rem 1.25rem; } }
+
+    .hud-row {
+      display: flex; justify-content: center; gap: 0.6rem; flex-wrap: wrap;
+      font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase;
+      margin-bottom: 0.6rem; color: var(--text-muted);
+    }
+    .hud-row .v { color: var(--line); }
+    .hud-name {
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+      font-size: clamp(2.2rem, 7vw, 3.6rem);
+      letter-spacing: 0.03em;
+      margin: 1rem 0;
+      color: var(--text);
+    }
+    .hud-spec { color: var(--line); }
+    .hud-eq {
+      margin-top: 0.9rem; font-size: 0.85rem; letter-spacing: 0.02em;
+      color: var(--text-muted); text-transform: none;
+    }
+    .hud-eq .g { color: var(--accent); }
+
+    /* === Cards === */
+    .card {
+      background-color: rgba(14, 32, 52, 0.7) !important;
+      border: 1px solid var(--line-dim) !important;
+      border-radius: 2px !important;
+      transition: border-color var(--ease), transform var(--ease);
+      overflow: hidden;
+    }
+    .card:hover { border-color: var(--line) !important; transform: translateY(-3px); }
+
+    .card-title {
+      color: var(--text) !important;
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      font-size: 1.05rem !important;
+      text-transform: uppercase;
+    }
+    .card-text { color: var(--text-muted) !important; font-size: 0.875rem; }
+
+    .badge { background: transparent !important; border: 1px solid var(--accent); color: var(--accent) !important; border-radius: 2px !important; font-family: 'IBM Plex Mono', monospace !important; }
+
+    .btn-primary, .btn-secondary {
+      border-radius: 2px !important;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.85rem;
+      letter-spacing: 0.03em;
+    }
+    .btn-primary { background: transparent !important; border: 1px solid var(--line) !important; color: var(--line) !important; }
+    .btn-primary:hover { background: var(--line) !important; color: var(--bg) !important; }
+    .btn-secondary { background: transparent !important; border: 1px solid var(--line-dim) !important; color: var(--text-muted) !important; }
+    .btn-secondary:hover { border-color: var(--line) !important; color: var(--line) !important; }
+
+    /* === Course toggle === */
+    .course-toggle { cursor: pointer; user-select: none; transition: background-color var(--ease); }
+    .course-toggle:hover { background-color: var(--line-dim); }
+    .course-chevron { font-size: 0.65rem; color: var(--text-muted); transition: transform var(--ease); flex-shrink: 0; }
+    .course-toggle[aria-expanded="true"] .course-chevron { transform: rotate(180deg); color: var(--accent); }
+    .course-details { border-top: 1px solid var(--line-dim); padding: 0.75rem 1rem; }
+    .course-details ul { padding-left: 1.1rem; font-size: 0.85rem; color: var(--text-muted); }
+    .course-details a { color: var(--accent); }
+
+    /* === Inactive projects === */
+    .inactive-projects-toggle {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%; max-width: 1000px; padding: 0.6rem 1rem;
+      background: transparent; border: 1px dashed var(--line-dim);
+      color: var(--text-muted); font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem;
+      letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer;
+      transition: border-color var(--ease), color var(--ease);
+    }
+    .inactive-projects-toggle:hover { border-color: var(--line); color: var(--line); }
+    .inactive-projects-chevron { transition: transform var(--ease); }
+    .inactive-projects-toggle[aria-expanded="true"] .inactive-projects-chevron { transform: rotate(180deg); }
+
+    /* === Footer === */
+    .footer {
+      max-width: 1000px; margin: 0 auto; padding: 2rem 1rem 1.5rem;
+      border-top: 1px solid var(--line-dim);
+      text-align: center; color: var(--text-muted); font-size: 0.85rem;
+    }
+    .footer h2 {
+      font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 0.9rem;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--line); border: none; margin-bottom: 0.75rem;
+    }
+    .footer .links a { margin: 0 0.9rem; color: var(--text-muted); text-decoration: none; transition: color var(--ease); }
+    .footer .links a:hover { color: var(--accent); }
+  </style>
+</head>
+
+<body>
+  <div id="navbar"></div>
+  <script src="/global/navbar.js"></script>
+
+  <!-- Hero -->
+  <header class="hero" id="about">
+    <canvas id="bhScope" aria-label="Blueprint-style schematic of a black hole: labeled event horizon, ISCO, and accretion disk orbit rings with tracked markers."></canvas>
+    <div class="hud-frame">
+      <h1 class="hud-name">Hey, I'm elektroedde</h1>
+      <div class="hud-row"><span>ROLE:</span><span class="v">Electrical Engineering Student</span></div>
+      <div class="hud-row"><span>SPEC:</span><span class="v hud-spec">Electrodynamics // Photonics // Computational Physics</span></div>
+      <p class="hud-eq">ISCO radius: <span class="g">r_isco</span> = 6<span class="g">GM</span>/<span class="g">c²</span></p>
+    </div>
+  </header>
+
+  <!-- Projects -->
+  <section class="sheet">
+    <h2 class="hud-heading"><span class="tag">01</span>Projects</h2>
+
+    <div class="card mb-3 project-card" style="max-width: 1000px;">
+      <div class="row g-0">
+        <div class="col-md-4" style="position: relative; overflow: hidden; min-height: 190px;">
+          <video src="/images/home/elektroengine_cover.mp4" autoplay loop muted playsinline style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;"></video>
+        </div>
+        <div class="col-md-8 d-flex flex-column">
+          <div class="card-body d-flex flex-column flex-grow-1">
+            <div class="d-flex align-items-center gap-2 mb-1">
+              <h5 class="card-title mb-0">ElektroEngine</h5>
+              <span class="badge">ACTIVE</span>
+            </div>
+            <p class="card-text">A math &amp; physics engine built with Swift Metal and C++. Real-time rendering and graphics programming for simulating physical systems.</p>
+            <p class="card-text"><small>Swift · Metal · C++ · Graphics Programming</small></p>
+            <a href="/projects/elektroengine.html" class="btn btn-primary mt-auto" style="align-self: flex-start;">Check it out!</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mb-3 project-card" style="max-width: 1000px;">
+      <div class="row g-0">
+        <div class="col-md-4" style="position: relative; overflow: hidden; min-height: 190px;">
+          <img src="/images/projects/compphysbook.jpg" alt="Computational Physics Book" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 5%;">
+        </div>
+        <div class="col-md-8 d-flex flex-column">
+          <div class="card-body d-flex flex-column flex-grow-1">
+            <div class="d-flex align-items-center gap-2 mb-1">
+              <h5 class="card-title mb-0">Computational Physics</h5>
+              <span class="badge">ACTIVE</span>
+            </div>
+            <p class="card-text">Solving every problem in this book.</p>
+            <p class="card-text"><small>Computational Physics · Numerical Methods · Python</small></p>
+            <a href="https://github.com/elektroedde/ComputationalPhysicsBook" class="btn btn-primary mt-auto" style="align-self: flex-start;" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mb-3 project-card" style="max-width: 1000px;">
+      <div class="row g-0">
+        <div class="col-md-4" style="position: relative; overflow: hidden; min-height: 190px;">
+          <img src="/images/projects/electrogriffithsbook.jpg" alt="Electrodynamics Griffiths" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 95%;">
+        </div>
+        <div class="col-md-8 d-flex flex-column">
+          <div class="card-body d-flex flex-column flex-grow-1">
+            <div class="d-flex align-items-center gap-2 mb-1">
+              <h5 class="card-title mb-0">Introduction to Electrodynamics</h5>
+              <span class="badge">ACTIVE</span>
+            </div>
+            <p class="card-text">Solving every problem in this book.</p>
+            <p class="card-text"><small>Electrodynamics · Classical Field Theory · Physics</small></p>
+            <a href="https://github.com/elektroedde/ElectrodynamicsGriffiths" class="btn btn-primary mt-auto" style="align-self: flex-start;" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Course specialties -->
+  <section class="sheet">
+    <h2 class="hud-heading"><span class="tag">02</span>Course Specialties</h2>
+
+    <div class="row row-cols-2 row-cols-md-3 g-4">
+      <div class="col">
+        <div class="card">
+          <img src="/images/courses/electrodynamics.jpg" class="card-img-top" alt="..." />
+          <div class="card-body course-toggle d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#course-em" aria-expanded="false">
+            <h5 class="card-title mb-0">Electrodynamics</h5>
+            <span class="course-chevron">&#9660;</span>
+          </div>
+          <div class="collapse" id="course-em">
+            <div class="course-details">
+              <ul class="card-text mb-0">
+                <li>Maxwell's equations</li>
+                <li>Electromagnetic waves</li>
+                <li><a href="https://kurser.lth.se/lot/course-syllabus/25_26/EITN80" target="_blank" rel="noopener noreferrer">Course Page</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card">
+          <img src="/images/courses/laser.webp" class="card-img-top" alt="..." />
+          <div class="card-body course-toggle d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#course-lasers" aria-expanded="false">
+            <h5 class="card-title mb-0">Lasers</h5>
+            <span class="course-chevron">&#9660;</span>
+          </div>
+          <div class="collapse" id="course-lasers">
+            <div class="course-details">
+              <ul class="card-text mb-0">
+                <li>Laser physics & cavity modes</li>
+                <li>Gaussian beam optics</li>
+                <li>Nonlinear optics</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card">
+          <img src="/images/courses/fem.png" class="card-img-top" alt="..." />
+          <div class="card-body course-toggle d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#course-fem" aria-expanded="false">
+            <h5 class="card-title mb-0">Finite Element Method</h5>
+            <span class="course-chevron">&#9660;</span>
+          </div>
+          <div class="collapse" id="course-fem">
+            <div class="course-details">
+              <ul class="card-text mb-0">
+                <li>Variational formulations</li>
+                <li>Mesh generation & refinement</li>
+                <li>Solving PDEs numerically</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card">
+          <img src="/images/courses/antenna.jpg" class="card-img-top" alt="..." />
+          <div class="card-body course-toggle d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#course-antenna" aria-expanded="false">
+            <h5 class="card-title mb-0">Antenna Technology</h5>
+            <span class="course-chevron">&#9660;</span>
+          </div>
+          <div class="collapse" id="course-antenna">
+            <div class="course-details">
+              <ul class="card-text mb-0">
+                <li>Radiation patterns & gain</li>
+                <li>Array antennas & beamforming</li>
+                <li>Impedance matching</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card">
+          <img src="/images/courses/quantum.jpg" class="card-img-top" alt="..." />
+          <div class="card-body course-toggle d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#course-quantum" aria-expanded="false">
+            <h5 class="card-title mb-0">Quantum Mechanics</h5>
+            <span class="course-chevron">&#9660;</span>
+          </div>
+          <div class="collapse" id="course-quantum">
+            <div class="course-details">
+              <ul class="card-text mb-0">
+                <li>Schrödinger equation</li>
+                <li>Operators & observables</li>
+                <li>Perturbation theory</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card">
+          <img src="/images/courses/radar.jpg" class="card-img-top" alt="..." />
+          <div class="card-body course-toggle d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#course-radar" aria-expanded="false">
+            <h5 class="card-title mb-0">Radar Technology</h5>
+            <span class="course-chevron">&#9660;</span>
+          </div>
+          <div class="collapse" id="course-radar">
+            <div class="course-details">
+              <ul class="card-text mb-0">
+                <li>Radar equation & cross-section</li>
+                <li>Pulse compression & waveforms</li>
+                <li>Doppler processing</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card">
+          <img src="/images/courses/matrix.svg" class="card-img-top" alt="..." />
+          <div class="card-body course-toggle d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#course-matrix" aria-expanded="false">
+            <h5 class="card-title mb-0">Matrix Theory</h5>
+            <span class="course-chevron">&#9660;</span>
+          </div>
+          <div class="collapse" id="course-matrix">
+            <div class="course-details">
+              <ul class="card-text mb-0">
+                <li>Eigenvalues & eigenvectors</li>
+                <li>Matrix decompositions</li>
+                <li>Linear systems & vector spaces</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Inactive projects -->
+  <section class="sheet" style="padding-top: 0;">
+    <button class="inactive-projects-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#inactiveProjects" aria-expanded="false" aria-controls="inactiveProjects">
+      <span>Archived Systems</span>
+      <span class="inactive-projects-chevron">&#9660;</span>
+    </button>
+
+    <div class="collapse" id="inactiveProjects">
+      <div class="card mb-3 mt-3" style="max-width: 1000px; opacity: 0.65;">
+        <div class="row g-0">
+          <div class="col-md-4" style="max-width: 100%;">
+            <img src="/images/home/cover_image.png" class="img-fluid" alt="FEM Solver" style="filter: grayscale(60%);">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <div class="d-flex align-items-center gap-2 mb-1">
+                <h5 class="card-title mb-0">Interactive FEM Solver and Visualization Tool</h5>
+                <span class="badge" style="color: var(--text-muted); border-color: var(--line-dim);">SHELVED</span>
+              </div>
+              <p class="card-text">A graphical user interface application used for solving finite element method problems.</p>
+              <p class="card-text"><small>Latest update: Feb 7, 2026 &mdash; Project abandoned</small></p>
+              <a href="/projects/fem_application.html" class="btn btn-secondary btn-sm">View anyway</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer"></div>
+  <script src="/global/footer.js"></script>
+
+  <!-- Black hole: blueprint schematic — labeled wireframe orbit rings -->
+  <script>
+    (function () {
+      var canvas = document.getElementById('bhScope');
+      if (!canvas || !canvas.getContext) return;
+      var ctx = canvas.getContext('2d');
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      function geom(w, h) {
+        var cx = w / 2, cy = h * 0.36;
+        var minWH = Math.min(w, h);
+        var evR = minWH * 0.085;
+        return {
+          cx: cx, cy: cy, evR: evR,
+          diskInner: evR * 1.2,
+          diskOuter: evR * 3.4,
+          isco: evR * 1.7,
+          squash: 0.36
+        };
+      }
+
+      var mouse = { x: -99999, y: -99999 };
+      window.addEventListener('mousemove', function (e) {
+        var rect = canvas.getBoundingClientRect();
+        mouse.x = (e.clientX - rect.left) * dpr;
+        mouse.y = (e.clientY - rect.top) * dpr;
+      });
+      function lensDisplace(sx, sy) {
+        var w = canvas.width, h = canvas.height;
+        var R = Math.min(w, h) * 0.22;
+        var dx = sx - mouse.x, dy = sy - mouse.y;
+        var r = Math.sqrt(dx * dx + dy * dy);
+        if (r >= R || r < 1e-6) return { x: sx, y: sy };
+        var maxPush = R * 0.8;
+        var ease = (R - r) / R;
+        var newR = r + ease * ease * maxPush;
+        var ux = dx / r, uy = dy / r;
+        return { x: mouse.x + ux * newR, y: mouse.y + uy * newR };
+      }
+
+      var stars = [];
+      function buildStars() {
+        stars = [];
+        var w = canvas.width, h = canvas.height;
+        for (var i = 0; i < 120; i++) {
+          stars.push({
+            x: Math.random() * w, y: Math.random() * h,
+            r: (Math.random() * 1.0 + 0.3) * dpr,
+            base: 0.12 + Math.random() * 0.3,
+            speed: 0.4 + Math.random() * 1.2,
+            phase: Math.random() * Math.PI * 2
+          });
+        }
+      }
+
+      function resize() {
+        var rect = canvas.getBoundingClientRect();
+        canvas.width = Math.max(1, Math.round(rect.width * dpr));
+        canvas.height = Math.max(1, Math.round(rect.height * dpr));
+        buildStars();
+      }
+      window.addEventListener('resize', resize);
+
+      var markers = [];
+      (function initMarkers() {
+        var perRing = [2, 3, 4, 5];
+        for (var ring = 0; ring < perRing.length; ring++) {
+          for (var i = 0; i < perRing[ring]; i++) {
+            markers.push({ ring: ring, angle: Math.random() * Math.PI * 2, speed: 0.55 - ring * 0.09 });
+          }
+        }
+      })();
+
+      function drawLeader(x0, y0, x1, y1, label, color) {
+        ctx.strokeStyle = color;
+        ctx.lineWidth = Math.max(1, dpr);
+        ctx.beginPath();
+        ctx.moveTo(x0, y0);
+        ctx.lineTo(x1, y1);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(x0, y0, Math.max(1.5, dpr * 1.5), 0, Math.PI * 2);
+        ctx.fillStyle = color;
+        ctx.fill();
+        ctx.font = (11 * dpr) + 'px "IBM Plex Mono", monospace';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(label, x1 + 6 * dpr, y1);
+      }
+
+      function draw(t) {
+        var w = canvas.width, h = canvas.height;
+        ctx.clearRect(0, 0, w, h);
+        var g = geom(w, h);
+
+        for (var i = 0; i < stars.length; i++) {
+          var s = stars[i];
+          var tw = reduceMotion ? s.base : s.base * (0.6 + 0.4 * Math.sin(t * s.speed + s.phase));
+          var pos = lensDisplace(s.x, s.y);
+          ctx.beginPath();
+          ctx.fillStyle = 'rgba(160, 205, 230,' + tw.toFixed(2) + ')';
+          ctx.arc(pos.x, pos.y, s.r, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        var ringRadii = [g.diskInner, g.isco, (g.diskInner + g.diskOuter) / 2, g.diskOuter];
+        ctx.setLineDash([g.evR * 0.12, g.evR * 0.09]);
+        ringRadii.forEach(function (rad, idx) {
+          ctx.strokeStyle = idx === 1 ? 'rgba(253, 216, 53, 0.55)' : 'rgba(95, 179, 224, 0.45)';
+          ctx.lineWidth = Math.max(1, g.evR * 0.02);
+          ctx.beginPath();
+          ctx.ellipse(g.cx, g.cy, rad, rad * g.squash, 0, 0, Math.PI * 2);
+          ctx.stroke();
+        });
+        ctx.setLineDash([]);
+
+        markers.forEach(function (m) {
+          m.angle += m.speed * (1 / 60);
+          var rad = ringRadii[m.ring];
+          var x = g.cx + Math.cos(m.angle) * rad;
+          var y = g.cy + Math.sin(m.angle) * rad * g.squash;
+          ctx.beginPath();
+          ctx.fillStyle = m.ring === 1 ? '#fdd835' : '#8fd0ef';
+          ctx.arc(x, y, Math.max(1.5, g.evR * 0.035), 0, Math.PI * 2);
+          ctx.fill();
+        });
+
+        ctx.beginPath();
+        ctx.fillStyle = '#0a1c2e';
+        ctx.arc(g.cx, g.cy, g.evR, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.lineWidth = Math.max(1.5, g.evR * 0.05);
+        ctx.strokeStyle = 'rgba(95, 179, 224, 0.9)';
+        ctx.stroke();
+
+        drawLeader(g.cx + Math.cos(-0.7) * g.evR, g.cy + Math.sin(-0.7) * g.evR * g.squash,
+          g.cx + g.evR * 1.6, g.cy - g.evR * 1.5, 'R₊ EVENT HORIZON', 'rgba(232, 242, 251, 0.85)');
+        drawLeader(g.cx + Math.cos(0.9) * g.isco, g.cy + Math.sin(0.9) * g.isco * g.squash,
+          g.cx + g.diskOuter * 1.05, g.cy - g.evR * 0.2, 'R_ISCO', 'rgba(253, 216, 53, 0.85)');
+        drawLeader(g.cx + Math.cos(2.6) * g.diskOuter, g.cy + Math.sin(2.6) * g.diskOuter * g.squash,
+          g.cx - g.diskOuter * 1.2, g.cy + g.evR * 1.1, 'ACCRETION DISK', 'rgba(143, 208, 239, 0.75)');
+      }
+
+      resize();
+      if (reduceMotion) {
+        draw(0);
+      } else {
+        var start = null;
+        (function loop(ts) {
+          if (start === null) start = ts;
+          draw((ts - start) / 1000);
+          requestAnimationFrame(loop);
+        })(performance.now());
+      }
+    })();
+  </script>
+</body>
+
+</html>
